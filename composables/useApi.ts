@@ -1,11 +1,12 @@
 import type { $Fetch } from 'nitropack';
+import type { FetchError } from 'ofetch';
 import type { UseFetchOptions } from '#app';
 
 export interface UseApiOptions {
   auth: boolean
 }
 
-export function useApi(options: UseApiOptions) {
+export function useApi(_options: UseApiOptions) {
   function server<T>(
     url: string | (() => string),
     options?: UseFetchOptions<T>,
@@ -21,5 +22,11 @@ export function useApi(options: UseApiOptions) {
     });
   }
 
-  return { server, client };
+  function handleApiError(error: FetchError) {
+    if (error.response?.status === 401) {
+      // Redirect to login page
+    }
+  }
+
+  return { server, client, handleApiError };
 }
