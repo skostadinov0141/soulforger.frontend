@@ -1,5 +1,5 @@
-import type { $Fetch } from 'nitropack'
-import type { UseFetchOptions } from '#app'
+import type { $Fetch } from 'nitropack';
+import type { UseFetchOptions } from '#app';
 
 export interface UseApiOptions {
   auth: boolean
@@ -12,14 +12,14 @@ export function useApi(options: UseApiOptions) {
   ) {
     return useFetch(`http://localhost:3001${url}`, {
       ...options,
-    })
+    });
   }
 
   function client<T>(): $Fetch<T> {
     return $fetch.create<T>({
       baseURL: 'http://localhost:3001',
-    })
+    });
   }
 
-  return { server, client }
+  return { server, client };
 }

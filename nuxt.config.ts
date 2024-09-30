@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { vuetifyOptions } from './vuetify'
-import { eslintConfig } from './eslint'
+import { vuetifyOptions } from './vuetify';
+import { eslintConfig } from './eslint';
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -13,4 +13,4 @@ export default defineNuxtConfig({
   eslint: {
     config: eslintConfig,
   },
-})
+});

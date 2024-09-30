@@ -2,7 +2,9 @@
   <v-locale-provider locale="de">
     <v-app>
       <v-main>
-        <NuxtPage />
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
       </v-main>
     </v-app>
   </v-locale-provider>
