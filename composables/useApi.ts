@@ -15,7 +15,7 @@ export function useApi(options: UseApiOptions) {
     })
   }
 
-  function client<T>(url: string): $Fetch<T> {
+  function client<T>(): $Fetch<T> {
     return $fetch.create<T>({
       baseURL: 'http://localhost:3001',
     })
