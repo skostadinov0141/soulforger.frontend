@@ -6,7 +6,7 @@ export interface UseApiOptions {
   auth: boolean
 }
 
-export function useApi(_options: UseApiOptions) {
+export function useApi() {
   function server<T>(
     url: string | (() => string),
     options?: UseFetchOptions<T>,
