@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@nuxt/eslint": "^0.5.7",
+    "@volar/language-server": "2.4.0-alpha.18",
+    "@vue/language-server": "2.0.28",
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest",
