@@ -1,13 +1,11 @@
 <template>
-  <div>
-    {{ JSON.stringify(tags, null, 2) }}
-  </div>
+  <div />
 </template>
 
 <script setup lang="ts">
 const attributeService = useAttributeService();
 
-const { data: tags } = await attributeService.getAllTags(true);
+const { data: tags } = await attributeService.getAllTagsServer();
 </script>
 
 <style scoped>
