@@ -59,28 +59,12 @@
             :items="tags ?? []"
             item-title="name"
             item-value="_id"
-            label="Tags hinzufügen"
+            label="Tag"
             multiple
-            color="success"
             clearable
             variant="outlined"
             class="mt-5"
             chips
-          />
-        </v-col>
-        <v-col cols="12">
-          <v-autocomplete
-            v-model="excludeTags"
-            :items="tags ?? []"
-            item-title="name"
-            item-value="_id"
-            label="Tags ausschließen"
-            multiple
-            class="mt-5"
-            color="error"
-            chips
-            clearable
-            variant="outlined"
           />
         </v-col>
         <v-col cols="12">
@@ -89,28 +73,12 @@
             :items="groups ?? []"
             item-title="name"
             item-value="_id"
-            label="Gruppen hinzufügen"
+            label="Gruppe"
             multiple
-            color="success"
             clearable
             variant="outlined"
             class="mt-5"
             chips
-          />
-        </v-col>
-        <v-col cols="12">
-          <v-autocomplete
-            v-model="excludeGroups"
-            :items="groups ?? []"
-            item-title="name"
-            item-value="_id"
-            label="Gruppen ausschließen"
-            multiple
-            class="mt-5"
-            color="error"
-            chips
-            clearable
-            variant="outlined"
           />
         </v-col>
       </v-row>
@@ -169,15 +137,7 @@ const sortOrder: ModelRef<number> = defineModel<number>('sortOrder', {
   required: true,
 });
 
-const excludeTags: ModelRef<string[] | undefined> = defineModel<string[] | undefined>('excludeTags', {
-  required: true,
-});
-
 const includeTags: ModelRef<string[] | undefined> = defineModel<string[] | undefined>('includeTags', {
-  required: true,
-});
-
-const excludeGroups: ModelRef<string[] | undefined> = defineModel<string[] | undefined>('excludeGroups', {
   required: true,
 });
 

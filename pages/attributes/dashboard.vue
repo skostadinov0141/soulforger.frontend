@@ -16,8 +16,6 @@
           v-model:sort-by="searchPayload.sortBy"
           v-model:sort-order="searchPayload.sortOrder"
           v-model:include-tags="searchPayload.includeTags"
-          v-model:exclude-tags="searchPayload.excludeTags"
-          v-model:exclude-groups="searchPayload.excludeGroups"
           v-model:include-groups="searchPayload.includeGroups"
           v-model:search-string="searchPayload.searchString"
           :tags="tags"
@@ -51,10 +49,8 @@ const router = useRouter();
 const searchPayload: Ref<SearchAttributeTemplateDto> = ref({
   searchString: route.query.searchString as string ?? '',
   sortBy: route.query.sortBy as string ?? 'name',
-  sortOrder: parseInt(route.query.sortOrder ?? 1),
-  excludeTags: route.query.excludeTags as string[] ?? [],
+  sortOrder: parseInt(route.query.sortOrder as string ?? '1', 10),
   includeTags: route.query.includeTags as string[] ?? [],
-  excludeGroups: route.query.excludeGroups as string[] ?? [],
 });
 
 const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags());
