@@ -20,7 +20,7 @@
         </v-col>
         <v-row
           no-gutters
-          class="mt-16"
+          class="mt-5"
         >
           <v-col>
             <v-select
