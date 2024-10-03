@@ -34,7 +34,6 @@ export function useAttributeService() {
       transform: response => response as AttributeEntity[],
     })
       .then((response) => {
-        console.log(response.data);
         return response;
       })
       .catch((error) => {

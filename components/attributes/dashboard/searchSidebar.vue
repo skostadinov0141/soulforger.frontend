@@ -139,7 +139,6 @@ import type { GroupEntity } from '~/composables/entities/attribute/group.entity'
 
 const searchString: ModelRef<string | undefined> = defineModel<string | undefined>('searchString', {
   required: true,
-  type: String,
 });
 
 const sortBy: ModelRef<string> = defineModel<string>('sortBy', {
