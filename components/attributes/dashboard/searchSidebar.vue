@@ -121,14 +121,37 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-btn
-        color="secondary"
-        block
-        variant="elevated"
-        text="Suchen"
-        prepend-icon="mdi-magnify"
-        @click="emit('search')"
-      />
+      <v-row no-gutters>
+        <v-col cols="12">
+          <v-btn
+            block
+            variant="flat"
+            class="mb-3"
+            text="Filter zurücksetzen"
+            prepend-icon="mdi-filter-remove"
+            @click="emit('resetFilters')"
+          />
+        </v-col>
+        <v-col cols="12">
+          <v-btn
+            block
+            variant="flat"
+            class="mb-3"
+            text="Attribut erstellen"
+            prepend-icon="mdi-plus"
+          />
+        </v-col>
+        <v-col cols="12">
+          <v-btn
+            color="secondary"
+            block
+            variant="elevated"
+            text="Suchen"
+            prepend-icon="mdi-magnify"
+            @click="emit('search')"
+          />
+        </v-col>
+      </v-row>
     </v-card-actions>
   </v-card>
 </template>
@@ -174,6 +197,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'search'): void
+  (e: 'resetFilters'): void
 }>();
 
 const sortByOptions = [

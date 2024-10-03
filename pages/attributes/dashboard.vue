@@ -22,6 +22,7 @@
           :tags="tags"
           :groups="groups"
           @search="search"
+          @reset-filters="resetFilters"
         />
       </v-col>
       <v-col
@@ -81,12 +82,25 @@ async function deleteAttribute(attribute: AttributeEntity) {
   );
 }
 
+function resetFilters() {
+  searchPayload.value = {
+    searchString: '',
+    sortBy: 'name',
+    sortOrder: 1,
+    excludeTags: [],
+    includeTags: [],
+    excludeGroups: [],
+    includeGroups: [],
+  };
+  search();
+}
+
 watch(searchPayload, (newSearch) => {
   router.push({
     query: {
       ...newSearch,
     },
-  }, { replace: true });
+  });
 }, { deep: true });
 </script>
 
