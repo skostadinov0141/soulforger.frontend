@@ -49,7 +49,7 @@ export const vuetifyOptions: VOptions = {
           background: '#121212',
           secondary: colors.lightBlue.darken3,
           accent: colors.orange.darken3,
-          error: colors.red.darken3,
+          error: colors.red.lighten2,
           warning: colors.amber.darken3,
           info: colors.cyan.darken3,
           success: colors.lightGreen.darken3,

@@ -18,7 +18,8 @@
           Abbrechen
         </v-btn>
         <v-btn
-          color="error"
+          color="warning"
+          variant="elevated"
           prepend-icon="mdi-check"
           @click="store.onConfirm"
         >
