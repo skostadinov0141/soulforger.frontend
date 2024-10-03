@@ -102,6 +102,7 @@
             class="mb-3"
             text="Attribut erstellen"
             prepend-icon="mdi-plus"
+            @click="navigateTo('/attribute-templates/create')"
           />
         </v-col>
         <v-col cols="12">
