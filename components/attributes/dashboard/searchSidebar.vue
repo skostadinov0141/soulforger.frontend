@@ -131,7 +131,7 @@
 
 <script setup lang="ts">
 import type { ModelRef } from 'vue';
-import type { TagEntity } from '~/composables/dtos/attribute-template/tag.entity';
+import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
 
 const sortBy: ModelRef<string> = defineModel<string>('sortBy', {
   required: true,

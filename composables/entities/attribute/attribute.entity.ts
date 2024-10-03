@@ -1,8 +1,8 @@
 import type { Tag } from 'postcss-selector-parser';
 import type { Group } from 'regjsparser';
-import type { FixedNumericValueEntity } from '~/composables/dtos/attribute-template/fixed-numeric-value.entity';
-import type { CalculatedNumericValueEntity } from '~/composables/dtos/attribute-template/calculated-numeric-value.entity';
-import type { TextValueEntity } from '~/composables/dtos/attribute-template/text-value.entity';
+import type { FixedNumericValueEntity } from '~/composables/entities/attribute/fixed-numeric-value.entity';
+import type { CalculatedNumericValueEntity } from '~/composables/entities/attribute/calculated-numeric-value.entity';
+import type { TextValueEntity } from '~/composables/entities/attribute/text-value.entity';
 
 export class AttributeEntity {
   _id: string;

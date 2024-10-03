@@ -1,9 +1,9 @@
 import type { FetchError } from 'ofetch';
 import type { SearchAttributeTemplateDto } from '~/composables/dtos/attribute-template/search.post.dto';
-import type { TagEntity } from '~/composables/dtos/attribute-template/tag.entity';
+import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
 import type { AsyncData } from '#app';
-import type { GroupEntity } from '~/composables/dtos/attribute-template/group.entity';
-import type { AttributeEntity } from '~/composables/dtos/attribute-template/attribute.entity';
+import type { GroupEntity } from '~/composables/entities/attribute/group.entity';
+import type { AttributeEntity } from '~/composables/entities/attribute/attribute.entity';
 
 export function useAttributeService() {
   const clientApi = useApi().client();
