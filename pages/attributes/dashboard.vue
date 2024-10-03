@@ -6,7 +6,6 @@
   >
     <v-row
       align="center"
-      justify="stretch"
       class="fill-height"
     >
       <v-col cols="3">

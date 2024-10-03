@@ -4,7 +4,7 @@
       elevation="2"
       :disable-resize-watcher="true"
       permanent
-      color="primary"
+      color="surface"
     >
       <v-list nav>
         <div

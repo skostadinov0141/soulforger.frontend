@@ -32,6 +32,21 @@ export const vuetifyOptions: VOptions = {
         colors: {
           primary: colors.blue.darken2,
           surface: colors.grey.lighten5,
+          background: colors.grey.lighten4,
+          secondary: colors.lightBlue.darken1,
+          accent: colors.orange.base,
+          error: colors.red.lighten1,
+          warning: colors.amber.lighten1,
+          info: colors.cyan.lighten1,
+          success: colors.lightGreen.lighten1,
+        },
+      },
+      dark: {
+        dark: false,
+        colors: {
+          primary: colors.blue.darken2,
+          surface: colors.grey.darken4,
+          background: '#121212',
           secondary: colors.lightBlue.darken1,
           accent: colors.orange.base,
           error: colors.red.lighten1,
