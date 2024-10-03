@@ -41,13 +41,11 @@
         <template #[`item.actions`]="{ item }">
           <v-btn
             variant="text"
-            color="primary"
             icon="mdi-pencil"
             @click="console.log(item)"
           />
           <v-btn
             variant="text"
-            color="secondary"
             icon="mdi-eye"
             @click="console.log(item)"
           />

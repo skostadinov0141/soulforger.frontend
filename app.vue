@@ -1,5 +1,5 @@
 <template>
-  <v-theme-provider theme="light">
+  <v-theme-provider theme="dark">
     <v-locale-provider locale="de">
       <v-app>
         <v-main>
