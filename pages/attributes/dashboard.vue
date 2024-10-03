@@ -40,8 +40,9 @@
 <script setup lang="ts">
 import type { SearchAttributeTemplateDto } from '~/composables/dtos/attribute-template/search.post.dto';
 import type { AttributeEntity } from '~/composables/entities/attribute/attribute.entity';
+import { useAttributeTemplateService } from '~/composables/useAttributeTemplateService';
 
-const attributeService = useAttributeService();
+const attributeService = useAttributeTemplateService();
 const confirmationDialog = useConfirmationDialog();
 const route = useRoute();
 const router = useRouter();
