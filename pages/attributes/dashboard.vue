@@ -20,6 +20,9 @@
           @search="console.log(searchPayload)"
         />
       </v-col>
+      <v-col cols="9">
+        <attributes-dashboard-results />
+      </v-col>
     </v-row>
   </v-container>
 </template>
