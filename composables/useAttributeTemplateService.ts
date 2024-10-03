@@ -2,6 +2,7 @@ import type { SearchAttributeTemplateDto } from '~/composables/dtos/attribute-te
 import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
 import type { AttributeEntity } from '~/composables/entities/attribute/attribute.entity';
 import type { CreateAttributeTemplateDto } from '~/composables/dtos/attribute-template/create.post.dto';
+import type { PathRegistryEntity } from '~/composables/entities/path-registry.entity';
 
 export function useAttributeTemplateService() {
   const clientApi = useApi().client();
@@ -42,11 +43,18 @@ export function useAttributeTemplateService() {
     });
   }
 
+  function getPathRegistries(rulebookId: string): Promise<PathRegistryEntity[]> {
+    return clientApi<PathRegistryEntity[]>(`/character/attribute/template/pathRegistry/${rulebookId}`, {
+      method: 'GET',
+    });
+  }
+
   return {
     search,
     getAllTags,
     getAllGroups,
     deleteAttribute,
     create,
+    getPathRegistries,
   };
 }
