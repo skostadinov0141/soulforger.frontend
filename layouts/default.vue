@@ -2,11 +2,11 @@
   <div>
     <v-navigation-drawer
       elevation="2"
-      :disable-resize-watcher="true"
-      permanent
+      rail
+      expand-on-hover
       color="surface"
     >
-      <v-list nav>
+      <v-list nav density="comfortable">
         <div
           v-for="route in routeElements"
           :key="`${route.title}-route`"
