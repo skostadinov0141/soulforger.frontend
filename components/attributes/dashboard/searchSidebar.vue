@@ -26,7 +26,6 @@
             <v-select
               v-model="sortBy"
               label="Sortieren nach"
-              prepend-inner-icon="mdi-sort"
               class="mr-3"
               variant="outlined"
               :items="sortByOptions"
@@ -57,7 +56,6 @@
         <v-col cols="12">
           <v-autocomplete
             v-model="includeTags"
-            prepend-inner-icon="mdi-tag-plus"
             :items="tags ?? []"
             item-title="name"
             item-value="_id"
@@ -73,7 +71,6 @@
         <v-col cols="12">
           <v-autocomplete
             v-model="excludeTags"
-            prepend-inner-icon="mdi-tag-remove"
             :items="tags ?? []"
             item-title="name"
             item-value="_id"
@@ -89,7 +86,6 @@
         <v-col cols="12">
           <v-autocomplete
             v-model="includeGroups"
-            prepend-inner-icon="mdi-account-plus"
             :items="groups ?? []"
             item-title="name"
             item-value="_id"
@@ -105,7 +101,6 @@
         <v-col cols="12">
           <v-autocomplete
             v-model="excludeGroups"
-            prepend-inner-icon="mdi-account-remove"
             :items="groups ?? []"
             item-title="name"
             item-value="_id"

@@ -1,13 +1,15 @@
 <template>
   <v-card
     elevation="2"
-    class="border-thin fill-height d-flex"
+    class="border-thin d-flex"
   >
     <v-card-text
       class="pa-0"
     >
       <v-data-table
-        class="fill-height"
+        height="720px"
+        fixed-footer
+        fixed-header
         density="comfortable"
         :headers="headers"
         :items="attributes ?? []"

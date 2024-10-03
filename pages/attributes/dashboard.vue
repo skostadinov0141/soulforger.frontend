@@ -2,11 +2,11 @@
   <v-container
     fluid
     height="100vh"
+    class="d-flex align-center px-8"
   >
     <v-row
       align="stretch"
       justify="center"
-      class="fill-height"
       no-gutters
     >
       <v-col
