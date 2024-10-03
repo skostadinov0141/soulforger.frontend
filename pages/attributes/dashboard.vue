@@ -16,9 +16,10 @@
           v-model:exclude-tags="searchPayload.excludeTags"
           v-model:exclude-groups="searchPayload.excludeGroups"
           v-model:include-groups="searchPayload.includeGroups"
+          v-model:search-string="searchPayload.searchString"
           :tags="tags"
           :groups="groups"
-          @search="console.log(searchPayload)"
+          @search="search"
         />
       </v-col>
       <v-col cols="9">
@@ -30,22 +31,29 @@
 
 <script setup lang="ts">
 import type { SearchAttributeTemplateDto } from '~/composables/dtos/attribute-template/search.post.dto';
+import type { AttributeEntity } from '~/composables/entities/attribute/attribute.entity';
 
 const attributeService = useAttributeService();
 
 const searchPayload: Ref<SearchAttributeTemplateDto> = ref({
   sortBy: 'name',
   sortOrder: 1,
-  page: 0,
-  limit: 20,
   excludeTags: [],
   includeTags: [],
   excludeGroups: [],
 });
 
-const { data: tags } = await attributeService.getAllTagsServer();
-const { data: groups } = await attributeService.getAllGroupsServer();
-const { data: attributes } = await attributeService.searchServer(searchPayload.value);
+const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags());
+const { data: groups } = await useAsyncData('groups', () => attributeService.getAllGroups());
+const { data: attributes, refresh: refreshAttributes } = await useAsyncData<AttributeEntity[]>(
+  'attributes',
+  () => attributeService.search(searchPayload.value),
+  { server: true },
+);
+
+async function search() {
+  await refreshAttributes();
+}
 </script>
 
 <style scoped>

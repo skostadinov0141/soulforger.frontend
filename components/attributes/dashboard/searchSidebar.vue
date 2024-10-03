@@ -9,9 +9,12 @@
       <v-row no-gutters>
         <v-col cols="12">
           <v-text-field
+            v-model="searchString"
             prepend-inner-icon="mdi-magnify"
             label="Suchbegriff"
             variant="outlined"
+            @keydown.enter="emit('search')"
+            @blur="searchString = ''"
           />
         </v-col>
         <v-row
@@ -39,12 +42,12 @@
             >
               <v-btn
                 color="primary"
-                value="1"
+                :value="1"
                 icon="mdi-sort-descending"
               />
               <v-btn
                 color="primary"
-                value="-1"
+                :value="-1"
                 icon="mdi-sort-ascending"
               />
             </v-btn-toggle>
@@ -133,6 +136,11 @@
 import type { ModelRef } from 'vue';
 import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
 import type { GroupEntity } from '~/composables/entities/attribute/group.entity';
+
+const searchString: ModelRef<string | undefined> = defineModel<string | undefined>('searchString', {
+  required: true,
+  type: String,
+});
 
 const sortBy: ModelRef<string> = defineModel<string>('sortBy', {
   required: true,

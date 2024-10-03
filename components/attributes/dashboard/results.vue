@@ -66,13 +66,9 @@
 <script setup lang="ts">
 import type { AttributeEntity } from '~/composables/entities/attribute/attribute.entity';
 
-const props = defineProps<{
+defineProps<{
   attributes: AttributeEntity[] | null
 }>();
-
-watch(props, (newValue) => {
-  console.log(newValue);
-});
 
 const headers = [
   { title: 'Name', value: 'name', sortable: false },
