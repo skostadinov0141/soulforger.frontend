@@ -2,25 +2,27 @@ import type { FetchError } from 'ofetch';
 import type { SearchAttributeTemplateDto } from '~/composables/dtos/attribute-template/search.post.dto';
 import type { TagEntity } from '~/composables/dtos/attribute-template/tag.entity';
 import type { AsyncData } from '#app';
+import type { GroupEntity } from '~/composables/dtos/attribute-template/group.entity';
+import type { AttributeEntity } from '~/composables/dtos/attribute-template/attribute.entity';
 
 export function useAttributeService() {
   const clientApi = useApi().client();
   const serverApi = useApi().server;
-  const handleApiError = useApi().handleApiError;
+  // const handleApiError = useApi().handleApiError;
 
-  async function search(payload: SearchAttributeTemplateDto, server: boolean = false) {
-    if (server) {
-      return serverApi<TagEntity>('/character/attribute/template/search', {
-        method: 'POST',
-        body: payload,
-      });
-    }
-    else {
-      return clientApi<TagEntity>('/character/attribute/template/search', {
-        method: 'POST',
-        body: payload,
-      });
-    }
+  async function search(payload: SearchAttributeTemplateDto): Promise<AttributeEntity> {
+    return clientApi<AttributeEntity>('/character/attribute/template/search', {
+      method: 'POST',
+      body: payload,
+    });
+  }
+
+  function searchServer(payload: SearchAttributeTemplateDto): AsyncData<AttributeEntity | null, FetchError | null> {
+    return serverApi<AttributeEntity>('/character/attribute/template/search', {
+      method: 'POST',
+      body: payload,
+      transform: response => response as AttributeEntity,
+    });
   }
 
   function getAllTags(): Promise<TagEntity[]> {
@@ -33,14 +35,15 @@ export function useAttributeService() {
     });
   }
 
-  async function getAllGroups(server: boolean = false) {
-    if (server) {
-      return serverApi('/character/attribute/template/groups');
-    }
-    else {
-      return clientApi('/character/attribute/template/groups');
-    }
+  async function getAllGroups() {
+    return clientApi('/character/attribute/template/groups');
   }
 
-  return { search, getAllTags, getAllGroups, getAllTagsServer };
+  function getAllGroupsServer(): AsyncData<GroupEntity[] | null, FetchError | null> {
+    return serverApi<GroupEntity[]>('/character/attribute/template/groups', {
+      transform: response => response as GroupEntity[],
+    });
+  }
+
+  return { search, getAllTags, getAllGroups, getAllTagsServer, getAllGroupsServer, searchServer };
 }
