@@ -11,6 +11,6 @@ export const routes: RouteElement[] = [
     title: 'Attribute',
     icon: 'mdi-account-tag-outline',
     requiredRoles: [],
-    to: '/attributes/dashboard',
+    to: '/attribute-templates/dashboard',
   },
 ];
