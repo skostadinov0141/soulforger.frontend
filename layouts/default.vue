@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-navigation-drawer
+      elevation="2"
       :disable-resize-watcher="true"
       permanent
+      color="primary"
     >
       <v-list nav>
         <div
