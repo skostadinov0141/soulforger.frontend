@@ -38,13 +38,16 @@ import type { AttributeEntity } from '~/composables/entities/attribute/attribute
 
 const attributeService = useAttributeService();
 const confirmationDialog = useConfirmationDialog();
+const route = useRoute();
+const router = useRouter();
 
 const searchPayload: Ref<SearchAttributeTemplateDto> = ref({
-  sortBy: 'name',
-  sortOrder: 1,
-  excludeTags: [],
-  includeTags: [],
-  excludeGroups: [],
+  searchString: route.query.searchString as string ?? '',
+  sortBy: route.query.sortBy as string ?? 'name',
+  sortOrder: parseInt(route.query.sortOrder ?? 1),
+  excludeTags: route.query.excludeTags as string[] ?? [],
+  includeTags: route.query.includeTags as string[] ?? [],
+  excludeGroups: route.query.excludeGroups as string[] ?? [],
 });
 
 const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags());
@@ -73,6 +76,14 @@ async function deleteAttribute(attribute: AttributeEntity) {
     },
   );
 }
+
+watch(searchPayload, (newSearch) => {
+  router.push({
+    query: {
+      ...newSearch,
+    },
+  }, { replace: true });
+}, { deep: true });
 </script>
 
 <style scoped>

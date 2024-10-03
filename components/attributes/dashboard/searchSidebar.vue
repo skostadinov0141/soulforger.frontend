@@ -14,7 +14,6 @@
             label="Suchbegriff"
             variant="outlined"
             @keydown.enter="emit('search')"
-            @blur="searchString = ''"
           />
         </v-col>
         <v-row
