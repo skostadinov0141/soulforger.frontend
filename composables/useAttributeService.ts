@@ -10,7 +10,16 @@ export function useAttributeService() {
   const serverApi = useApi().server;
   // const handleApiError = useApi().handleApiError;
 
+  function addDefaultsForSearch(payload: SearchAttributeTemplateDto) {
+    if (payload.searchString === '') payload.searchString = undefined;
+    if (payload.includeTags && payload.includeTags!.length === 0) payload.includeTags = undefined;
+    if (payload.excludeTags && payload.excludeTags!.length === 0) payload.excludeTags = undefined;
+    if (payload.includeGroups && payload.includeGroups!.length === 0) payload.includeGroups = undefined;
+    if (payload.excludeGroups && payload.excludeGroups!.length === 0) payload.excludeGroups = undefined;
+  }
+
   async function search(payload: SearchAttributeTemplateDto): Promise<AttributeEntity[]> {
+    addDefaultsForSearch(payload);
     return clientApi<AttributeEntity[]>('/character/attribute/template/search', {
       method: 'POST',
       body: payload,
@@ -18,11 +27,7 @@ export function useAttributeService() {
   }
 
   async function searchServer(payload: SearchAttributeTemplateDto): Promise<AsyncData<AttributeEntity[] | null, FetchError | null>> {
-    if (payload.searchString === '') payload.searchString = undefined;
-    if (payload.includeTags && payload.includeTags!.length === 0) payload.includeTags = undefined;
-    if (payload.excludeTags && payload.excludeTags!.length === 0) payload.excludeTags = undefined;
-    if (payload.includeGroups && payload.includeGroups!.length === 0) payload.includeGroups = undefined;
-    if (payload.excludeGroups && payload.excludeGroups!.length === 0) payload.excludeGroups = undefined;
+    addDefaultsForSearch(payload);
     return serverApi<AttributeEntity[]>('/character/attribute/template/search', {
       method: 'POST',
       body: payload,
