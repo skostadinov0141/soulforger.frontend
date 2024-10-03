@@ -53,7 +53,7 @@
             variant="text"
             color="error"
             icon="mdi-delete"
-            @click="console.log(item)"
+            @click="emit('delete', item)"
           />
         </template>
       </v-data-table>
@@ -66,6 +66,10 @@ import type { AttributeEntity } from '~/composables/entities/attribute/attribute
 
 defineProps<{
   attributes: AttributeEntity[] | null
+}>();
+
+const emit = defineEmits<{
+  (e: 'delete', attribute: AttributeEntity): void
 }>();
 
 const headers = [

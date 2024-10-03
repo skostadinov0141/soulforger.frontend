@@ -171,7 +171,9 @@ defineProps<{
   groups: GroupEntity[] | null
 }>();
 
-const emit = defineEmits(['search']);
+const emit = defineEmits<{
+  (e: 'search'): void
+}>();
 
 const sortByOptions = [
   { title: 'Name', value: 'name' },

@@ -23,7 +23,10 @@
         />
       </v-col>
       <v-col cols="9">
-        <attributes-dashboard-results :attributes="attributes" />
+        <attributes-dashboard-results
+          :attributes="attributes"
+          @delete="deleteAttribute"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -34,6 +37,7 @@ import type { SearchAttributeTemplateDto } from '~/composables/dtos/attribute-te
 import type { AttributeEntity } from '~/composables/entities/attribute/attribute.entity';
 
 const attributeService = useAttributeService();
+const confirmationDialog = useConfirmationDialog();
 
 const searchPayload: Ref<SearchAttributeTemplateDto> = ref({
   sortBy: 'name',
@@ -53,6 +57,21 @@ const { data: attributes, refresh: refreshAttributes } = await useAsyncData<Attr
 
 async function search() {
   await refreshAttributes();
+}
+
+async function deleteAttribute(attribute: AttributeEntity) {
+  confirmationDialog.open(
+    'Bestätigung',
+    'Möchtest du dieses Attribut wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.',
+    async () => {
+      await attributeService.deleteAttribute(attribute._id);
+      await refreshAttributes();
+      confirmationDialog.close();
+    },
+    () => {
+      confirmationDialog.close();
+    },
+  );
 }
 </script>
 
