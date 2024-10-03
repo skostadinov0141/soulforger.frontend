@@ -61,5 +61,19 @@ export function useAttributeService() {
     });
   }
 
-  return { search, getAllTags, getAllGroups, getAllTagsServer, getAllGroupsServer, searchServer };
+  function deleteAttribute(id: string): Promise<void> {
+    return clientApi(`/character/attribute/template/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  return {
+    search,
+    getAllTags,
+    getAllGroups,
+    getAllTagsServer,
+    getAllGroupsServer,
+    searchServer,
+    deleteAttribute,
+  };
 }
