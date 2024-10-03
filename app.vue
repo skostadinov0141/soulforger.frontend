@@ -6,6 +6,7 @@
           <NuxtLayout>
             <NuxtPage />
           </NuxtLayout>
+          <confirmation-dialog />
         </v-main>
       </v-app>
     </v-locale-provider>
