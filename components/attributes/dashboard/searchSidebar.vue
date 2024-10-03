@@ -54,7 +54,7 @@
           <v-autocomplete
             v-model="includeTags"
             prepend-inner-icon="mdi-tag-plus"
-            :items="tags"
+            :items="tags ?? []"
             item-title="name"
             item-value="_id"
             label="Tags hinzufügen"
@@ -70,7 +70,7 @@
           <v-autocomplete
             v-model="excludeTags"
             prepend-inner-icon="mdi-tag-remove"
-            :items="tags"
+            :items="tags ?? []"
             item-title="name"
             item-value="_id"
             label="Tags ausschließen"
@@ -86,7 +86,7 @@
           <v-autocomplete
             v-model="includeGroups"
             prepend-inner-icon="mdi-account-plus"
-            :items="groups"
+            :items="groups ?? []"
             item-title="name"
             item-value="_id"
             label="Gruppen hinzufügen"
@@ -102,7 +102,7 @@
           <v-autocomplete
             v-model="excludeGroups"
             prepend-inner-icon="mdi-account-remove"
-            :items="groups"
+            :items="groups ?? []"
             item-title="name"
             item-value="_id"
             label="Gruppen ausschließen"
@@ -160,8 +160,8 @@ const includeGroups: ModelRef<string[] | undefined> = defineModel<string[] | und
 });
 
 defineProps<{
-  tags: TagEntity[]
-  groups: GroupEntity[]
+  tags: TagEntity[] | null
+  groups: GroupEntity[] | null
 }>();
 
 const emit = defineEmits(['search']);

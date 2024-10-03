@@ -10,19 +10,31 @@ export function useAttributeService() {
   const serverApi = useApi().server;
   // const handleApiError = useApi().handleApiError;
 
-  async function search(payload: SearchAttributeTemplateDto): Promise<AttributeEntity> {
-    return clientApi<AttributeEntity>('/character/attribute/template/search', {
+  async function search(payload: SearchAttributeTemplateDto): Promise<AttributeEntity[]> {
+    return clientApi<AttributeEntity[]>('/character/attribute/template/search', {
       method: 'POST',
       body: payload,
     });
   }
 
-  function searchServer(payload: SearchAttributeTemplateDto): AsyncData<AttributeEntity | null, FetchError | null> {
-    return serverApi<AttributeEntity>('/character/attribute/template/search', {
+  async function searchServer(payload: SearchAttributeTemplateDto): Promise<AsyncData<AttributeEntity[] | null, FetchError | null>> {
+    if (payload.searchString === '') payload.searchString = undefined;
+    if (payload.includeTags && payload.includeTags!.length === 0) payload.includeTags = undefined;
+    if (payload.excludeTags && payload.excludeTags!.length === 0) payload.excludeTags = undefined;
+    if (payload.includeGroups && payload.includeGroups!.length === 0) payload.includeGroups = undefined;
+    if (payload.excludeGroups && payload.excludeGroups!.length === 0) payload.excludeGroups = undefined;
+    return serverApi<AttributeEntity[]>('/character/attribute/template/search', {
       method: 'POST',
       body: payload,
-      transform: response => response as AttributeEntity,
-    });
+      transform: response => response as AttributeEntity[],
+    })
+      .then((response) => {
+        console.log(response.data);
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   function getAllTags(): Promise<TagEntity[]> {
