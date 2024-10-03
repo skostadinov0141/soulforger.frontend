@@ -7,6 +7,7 @@
       align="stretch"
       justify="center"
       class="fill-height"
+      no-gutters
     >
       <v-col
         cols="3"
@@ -27,6 +28,7 @@
       </v-col>
       <v-col
         cols="9"
+        class="pl-4"
       >
         <attributes-dashboard-results
           :attributes="attributes"
