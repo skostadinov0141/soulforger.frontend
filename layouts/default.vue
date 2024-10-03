@@ -6,7 +6,10 @@
       expand-on-hover
       color="surface"
     >
-      <v-list nav density="comfortable">
+      <v-list
+        nav
+        density="comfortable"
+      >
         <div
           v-for="route in routeElements"
           :key="`${route.title}-route`"

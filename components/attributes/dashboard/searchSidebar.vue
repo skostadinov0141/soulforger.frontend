@@ -1,11 +1,13 @@
 <template>
-  <v-sheet
+  <v-card
     elevation="2"
     rounded
     color="surface"
-    class="border-thin"
+    class="border-thin fill-height d-flex flex-column"
   >
-    <v-card-text style="overflow-y: auto; height:90vh">
+    <v-card-text
+      class="overflow-y-auto fill-height"
+    >
       <v-row no-gutters>
         <v-col cols="12">
           <v-text-field
@@ -128,7 +130,7 @@
         @click="emit('search')"
       />
     </v-card-actions>
-  </v-sheet>
+  </v-card>
 </template>
 
 <script setup lang="ts">

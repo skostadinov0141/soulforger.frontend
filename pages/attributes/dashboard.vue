@@ -1,14 +1,16 @@
 <template>
   <v-container
-    height="100vh"
     fluid
-    class="pa-6"
+    height="100vh"
   >
     <v-row
-      align="center"
+      align="stretch"
+      justify="center"
       class="fill-height"
     >
-      <v-col cols="3">
+      <v-col
+        cols="3"
+      >
         <attributes-dashboard-search-sidebar
           v-model:sort-by="searchPayload.sortBy"
           v-model:sort-order="searchPayload.sortOrder"
@@ -22,7 +24,9 @@
           @search="search"
         />
       </v-col>
-      <v-col cols="9">
+      <v-col
+        cols="9"
+      >
         <attributes-dashboard-results
           :attributes="attributes"
           @delete="deleteAttribute"
