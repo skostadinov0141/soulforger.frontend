@@ -86,7 +86,7 @@
           <v-autocomplete
             v-model="includeGroups"
             prepend-inner-icon="mdi-account-plus"
-            :items="tags"
+            :items="groups"
             item-title="name"
             item-value="_id"
             label="Gruppen hinzufügen"
@@ -102,7 +102,7 @@
           <v-autocomplete
             v-model="excludeGroups"
             prepend-inner-icon="mdi-account-remove"
-            :items="tags"
+            :items="groups"
             item-title="name"
             item-value="_id"
             label="Gruppen ausschließen"
@@ -132,6 +132,7 @@
 <script setup lang="ts">
 import type { ModelRef } from 'vue';
 import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
+import type { GroupEntity } from '~/composables/entities/attribute/group.entity';
 
 const sortBy: ModelRef<string> = defineModel<string>('sortBy', {
   required: true,
@@ -160,6 +161,7 @@ const includeGroups: ModelRef<string[] | undefined> = defineModel<string[] | und
 
 defineProps<{
   tags: TagEntity[]
+  groups: GroupEntity[]
 }>();
 
 const emit = defineEmits(['search']);

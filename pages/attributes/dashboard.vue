@@ -17,6 +17,7 @@
           v-model:exclude-groups="searchPayload.excludeGroups"
           v-model:include-groups="searchPayload.includeGroups"
           :tags="tags!"
+          :groups="groups!"
           @search="console.log(searchPayload)"
         />
       </v-col>
@@ -33,6 +34,7 @@ import type { SearchAttributeTemplateDto } from '~/composables/dtos/attribute-te
 const attributeService = useAttributeService();
 
 const { data: tags } = await attributeService.getAllTagsServer();
+const { data: groups } = await attributeService.getAllGroupsServer();
 const searchPayload: Ref<SearchAttributeTemplateDto> = ref({
   sortBy: 'name',
   sortOrder: 1,
