@@ -305,8 +305,9 @@ function addGroup() {
   groupAutocomplete.value.blur();
 }
 
-function createAttributeTemplate() {
-  attributeTemplateService.create(createPayload.value);
+async function createAttributeTemplate() {
+  await attributeTemplateService.create(createPayload.value);
+  navigateTo({ path: `/attribute-templates/dashboard` });
 }
 </script>
 
