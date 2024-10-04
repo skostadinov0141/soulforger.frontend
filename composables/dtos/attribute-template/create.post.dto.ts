@@ -40,7 +40,7 @@ export class CreateAttributeTemplateDto {
   rulebook: string;
   name: string;
   description: string;
-  attributeType: string;
+  attributeType?: string;
   attributeValue?:
     | CreateAttributeTextValueTemplateDto
     | CreateAttributeFixedNumericValueTemplateDto

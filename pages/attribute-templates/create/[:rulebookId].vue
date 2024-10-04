@@ -120,6 +120,25 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <v-col cols="12">
+        <v-card
+          :disabled="createPayload.name === '' || createPayload.description === ''"
+          elevation="2"
+          class="border-thin"
+          title="Schritt 5: Attributwert"
+          subtitle="Wähle den Typ und den Wert des Attributs."
+        >
+          <v-divider />
+          <v-card-text>
+            <v-select
+              v-model="createPayload.attributeType"
+              label="Attributtyp"
+              variant="outlined"
+              :items="attributeOptions"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -142,7 +161,7 @@ const createPayload: Ref<CreateAttributeTemplateDto> = ref<CreateAttributeTempla
   description: '',
   tags: [],
   group: undefined,
-  attributeType: '',
+  attributeType: undefined,
   attributeValue: undefined,
 });
 
@@ -156,6 +175,12 @@ const tagAutocompleteSearchValue: Ref<string> = ref('');
 const selectedGroup: Ref<GroupEntity | undefined> = ref(undefined);
 const groupAutocompleteSearchValue: Ref<string> = ref('');
 const groupAutocomplete = ref();
+
+const attributeOptions = [
+  { title: 'Text', value: 'TextValue' },
+  { title: 'Einfache Zahl', value: 'FixedNumericValue' },
+  { title: 'Berechnete Zahl', value: 'CalculatedNumericValue' },
+];
 
 watch(selectedTags, (newTags) => {
   createPayload.value.tags = newTags.map((tag) => {
