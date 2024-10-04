@@ -2,7 +2,7 @@
   <v-theme-provider theme="dark">
     <v-locale-provider locale="de">
       <v-app>
-        <v-main height="100vh">
+        <v-main>
           <NuxtLayout>
             <NuxtPage />
           </NuxtLayout>

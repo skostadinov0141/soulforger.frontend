@@ -13,6 +13,12 @@ export const vuetifyOptions: VOptions = {
       hideDetails: 'auto',
       density: 'comfortable',
     },
+    VTextarea: {
+      variant: 'solo-filled',
+      hideDetails: 'auto',
+      density: 'comfortable',
+      noResize: true,
+    },
     VAutocomplete: {
       variant: 'solo-filled',
       hideDetails: 'auto',

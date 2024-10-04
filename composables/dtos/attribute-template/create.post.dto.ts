@@ -41,11 +41,11 @@ export class CreateAttributeTemplateDto {
   name: string;
   description: string;
   attributeType: string;
-  attributeValue:
+  attributeValue?:
     | CreateAttributeTextValueTemplateDto
     | CreateAttributeFixedNumericValueTemplateDto
     | CreateAttributeCalculatedNumericValueTemplateDto;
 
   tags: CreateAttributeTag[];
-  group: CreateAttributeGroup;
+  group?: CreateAttributeGroup;
 }

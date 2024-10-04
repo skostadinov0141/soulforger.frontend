@@ -113,7 +113,9 @@
             class="mb-3"
             text="Attribut erstellen"
             prepend-icon="mdi-plus"
-            @click="navigateTo('/attribute-templates/create')"
+            @click="navigateTo({
+              path: `/attribute-templates/create/${rulebook}`,
+            })"
           />
         </v-col>
         <v-col cols="12">
