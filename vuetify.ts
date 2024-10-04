@@ -9,23 +9,23 @@ export const vuetifyOptions: VOptions = {
   },
   defaults: {
     VTextField: {
-      variant: 'solo-filled',
+      variant: 'outlined',
       hideDetails: 'auto',
       density: 'comfortable',
     },
     VTextarea: {
-      variant: 'solo-filled',
+      variant: 'outlined',
       hideDetails: 'auto',
       density: 'comfortable',
       noResize: true,
     },
     VAutocomplete: {
-      variant: 'solo-filled',
+      variant: 'outlined',
       hideDetails: 'auto',
       density: 'comfortable',
     },
     VSelect: {
-      variant: 'solo-filled',
+      variant: 'outlined',
       hideDetails: 'auto',
       density: 'comfortable',
     },

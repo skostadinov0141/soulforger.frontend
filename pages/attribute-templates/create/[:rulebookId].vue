@@ -142,6 +142,7 @@
                 :is="attributeTypeComponents[createPayload.attributeType]"
                 v-if="createPayload.attributeType"
                 v-model="createPayload.attributeValue"
+                :rulebook-id="createPayload.rulebook"
               />
             </v-expand-transition>
           </v-card-text>
