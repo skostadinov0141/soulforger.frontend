@@ -31,9 +31,9 @@ export class CreateAttributeCharacterFieldPathTemplateDto {
 }
 
 export class CreateAttributeDiceRollTemplateDto {
-  name: string;
-  diceSides: number;
-  diceAmount: string;
+  name?: string;
+  diceSides?: number;
+  diceAmount?: string;
 }
 
 export class CreateAttributeTemplateDto {

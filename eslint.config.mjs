@@ -16,5 +16,7 @@ export default withNuxt(
     '@stylistic/semi': ['error', 'always'],
     '@typescript-eslint/unified-signatures': 'off',
     'no-console': ['error', { allow: ['warn', 'error'] }],
+    'vue/no-v-text-v-html-on-component': 'off',
+    'vue/no-v-html': 'off',
   },
 });
