@@ -18,6 +18,17 @@
             @keydown.enter="emit('search')"
           />
         </v-col>
+        <v-col cols="12">
+          <v-select
+            v-model="rulebook"
+            label="Regelwerk"
+            variant="outlined"
+            :items="rulebooks ?? []"
+            item-title="name"
+            item-value="_id"
+            class="mt-5"
+          />
+        </v-col>
         <v-row
           no-gutters
           class="mt-5"
@@ -124,6 +135,7 @@
 import type { ModelRef } from 'vue';
 import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
 import type { GroupEntity } from '~/composables/entities/attribute/group.entity';
+import type { RulebookEntity } from '~/composables/entities/rulebook/rulebook.entity';
 
 const searchString: ModelRef<string | undefined> = defineModel<string | undefined>('searchString', {
   required: true,
@@ -146,9 +158,14 @@ const includeGroups: ModelRef<string[] | undefined> = defineModel<string[] | und
   required: true,
 });
 
+const rulebook: ModelRef<string | undefined> = defineModel<string | undefined>('rulebook', {
+  required: true,
+});
+
 defineProps<{
   tags: TagEntity[] | null
   groups: GroupEntity[] | null
+  rulebooks: RulebookEntity[] | null
 }>();
 
 const emit = defineEmits<{

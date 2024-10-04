@@ -4,4 +4,5 @@ export class SearchAttributeTemplateDto {
   sortBy: string;
   includeTags?: string[];
   includeGroups?: string[];
+  rulebook?: string;
 }

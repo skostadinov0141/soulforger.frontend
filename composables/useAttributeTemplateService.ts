@@ -3,6 +3,7 @@ import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
 import type { AttributeEntity } from '~/composables/entities/attribute/attribute.entity';
 import type { CreateAttributeTemplateDto } from '~/composables/dtos/attribute-template/create.post.dto';
 import type { PathRegistryEntity } from '~/composables/entities/path-registry.entity';
+import type { GroupEntity } from '~/composables/entities/attribute/group.entity';
 
 export function useAttributeTemplateService() {
   const clientApi = useApi().client();
@@ -12,6 +13,7 @@ export function useAttributeTemplateService() {
     if (payload.searchString === '') payload.searchString = undefined;
     if (payload.includeTags && payload.includeTags!.length === 0) payload.includeTags = undefined;
     if (payload.includeGroups && payload.includeGroups!.length === 0) payload.includeGroups = undefined;
+    if (payload.rulebook && payload.rulebook === '') payload.rulebook = undefined;
   }
 
   async function search(payload: SearchAttributeTemplateDto): Promise<AttributeEntity[]> {
@@ -26,7 +28,7 @@ export function useAttributeTemplateService() {
     return clientApi<TagEntity[]>('/character/attribute/template/tags');
   }
 
-  async function getAllGroups() {
+  async function getAllGroups(): Promise<GroupEntity[]> {
     return clientApi('/character/attribute/template/groups');
   }
 

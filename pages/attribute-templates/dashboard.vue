@@ -18,8 +18,10 @@
           v-model:include-tags="searchPayload.includeTags"
           v-model:include-groups="searchPayload.includeGroups"
           v-model:search-string="searchPayload.searchString"
+          v-model:rulebook="searchPayload.rulebook"
           :tags="tags"
           :groups="groups"
+          :rulebooks="rulebooks"
           @search="search"
           @reset-filters="resetFilters"
         />
@@ -43,24 +45,27 @@ import type { AttributeEntity } from '~/composables/entities/attribute/attribute
 import { useAttributeTemplateService } from '~/composables/useAttributeTemplateService';
 
 const attributeService = useAttributeTemplateService();
+const rulebookService = useRulebookService();
 const confirmationDialog = useConfirmationDialog();
 const route = useRoute();
 const router = useRouter();
+
+const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags());
+const { data: groups } = await useAsyncData('groups', () => attributeService.getAllGroups());
+const { data: rulebooks } = await useAsyncData('rulebooks', () => rulebookService.getAll());
+const { data: attributes, refresh: refreshAttributes } = await useAsyncData<AttributeEntity[]>(
+  'attributes',
+  () => attributeService.search(searchPayload.value),
+  { server: true, immediate: false },
+);
 
 const searchPayload: Ref<SearchAttributeTemplateDto> = ref({
   searchString: route.query.searchString as string ?? '',
   sortBy: route.query.sortBy as string ?? 'name',
   sortOrder: parseInt(route.query.sortOrder as string ?? '1', 10),
   includeTags: route.query.includeTags as string[] ?? [],
+  rulebook: route.query.rulebook as string ?? rulebooks.value![0]._id ?? '',
 });
-
-const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags());
-const { data: groups } = await useAsyncData('groups', () => attributeService.getAllGroups());
-const { data: attributes, refresh: refreshAttributes } = await useAsyncData<AttributeEntity[]>(
-  'attributes',
-  () => attributeService.search(searchPayload.value),
-  { server: true },
-);
 
 async function search() {
   await refreshAttributes();
@@ -86,10 +91,9 @@ function resetFilters() {
     searchString: '',
     sortBy: 'name',
     sortOrder: 1,
-    excludeTags: [],
     includeTags: [],
-    excludeGroups: [],
     includeGroups: [],
+    rulebook: rulebooks.value![0].name ?? '',
   };
   search();
 }
