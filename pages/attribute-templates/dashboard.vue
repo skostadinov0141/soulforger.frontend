@@ -1,7 +1,7 @@
 <template>
   <v-container
     fluid
-    height="100vh"
+    min-height="100vh"
     class="d-flex align-center px-8"
   >
     <v-row

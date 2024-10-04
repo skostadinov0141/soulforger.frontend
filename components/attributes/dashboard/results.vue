@@ -7,7 +7,7 @@
       class="pa-0"
     >
       <v-data-table
-        height="800px"
+        height="750px"
         fixed-footer
         fixed-header
         density="comfortable"
