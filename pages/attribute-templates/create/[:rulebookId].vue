@@ -135,11 +135,13 @@
               label="Attributtyp"
               variant="outlined"
               :items="attributeOptions"
+              @update:model-value="createValue()"
             />
             <v-expand-transition>
               <component
                 :is="attributeTypeComponents[createPayload.attributeType]"
                 v-if="createPayload.attributeType"
+                v-model="createPayload.attributeValue"
               />
             </v-expand-transition>
           </v-card-text>
@@ -219,6 +221,30 @@ watch(selectedGroup, (newGroup) => {
     for: newGroup.for ?? 'attribute',
   };
 });
+
+function createValue() {
+  switch (createPayload.value.attributeType) {
+    case 'TextValue':
+      createPayload.value.attributeValue = {
+        value: undefined,
+        options: [],
+      };
+      break;
+    case 'FixedNumericValue':
+      createPayload.value.attributeValue = {
+        value: undefined,
+      };
+      break;
+    case 'CalculatedNumericValue':
+      createPayload.value.attributeValue = {
+        formula: undefined,
+        variables: [],
+        diceRolls: [],
+      };
+      break;
+  }
+  console.log(createPayload.value.attributeValue);
+}
 
 function addTag() {
   if (tagAutocompleteSearchValue.value === '') {

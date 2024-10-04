@@ -11,16 +11,16 @@ export class CreateAttributeGroup {
 }
 
 export class CreateAttributeTextValueTemplateDto {
-  value: string;
+  value?: string;
   options: string[];
 }
 
 export class CreateAttributeFixedNumericValueTemplateDto {
-  value: string;
+  value?: number;
 }
 
 export class CreateAttributeCalculatedNumericValueTemplateDto {
-  formula: string;
+  formula?: string;
   variables: CreateAttributeCharacterFieldPathTemplateDto[];
   diceRolls: CreateAttributeDiceRollTemplateDto[];
 }
