@@ -148,6 +148,17 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <v-col cols="12">
+        <v-btn
+          :disabled="createPayload.name === '' || createPayload.description === ''"
+          color="primary"
+          block
+          prepend-icon="mdi-plus"
+          @click="createAttributeTemplate"
+        >
+          Attribut erstellen
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -246,6 +257,17 @@ function createValue() {
   }
 }
 
+watch(selectedTags.value, (newTags) => {
+  createPayload.value.tags = newTags.map((tag) => {
+    const tagPayload: CreateAttributeTag = {
+      _id: tag._id,
+      name: tag.name,
+      for: tag.for ?? 'attribute',
+    };
+    return tagPayload;
+  });
+});
+
 function addTag() {
   if (tagAutocompleteSearchValue.value === '') {
     return;
@@ -281,6 +303,10 @@ function addGroup() {
     description: undefined,
   };
   groupAutocomplete.value.blur();
+}
+
+function createAttributeTemplate() {
+  attributeTemplateService.create(createPayload.value);
 }
 </script>
 

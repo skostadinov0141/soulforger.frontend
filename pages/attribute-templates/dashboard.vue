@@ -94,7 +94,7 @@ function resetFilters() {
     sortOrder: 1,
     includeTags: [],
     includeGroups: [],
-    rulebook: rulebooks.value![0].name ?? undefined,
+    rulebook: rulebooks.value![0]._id ?? undefined,
   };
   search();
 }
