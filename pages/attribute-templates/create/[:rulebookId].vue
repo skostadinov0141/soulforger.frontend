@@ -243,7 +243,6 @@ function createValue() {
       };
       break;
   }
-  console.log(createPayload.value.attributeValue);
 }
 
 function addTag() {
