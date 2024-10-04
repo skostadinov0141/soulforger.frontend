@@ -136,6 +136,12 @@
               variant="outlined"
               :items="attributeOptions"
             />
+            <v-expand-transition>
+              <component
+                :is="attributeTypeComponents[createPayload.attributeType]"
+                v-if="createPayload.attributeType"
+              />
+            </v-expand-transition>
           </v-card-text>
         </v-card>
       </v-col>
@@ -150,6 +156,9 @@ import type {
 } from '~/composables/dtos/attribute-template/create.post.dto';
 import type { TagEntity } from '~/composables/entities/attribute/tag.entity';
 import type { GroupEntity } from '~/composables/entities/attribute/group.entity';
+import TextValueCard from '~/components/attributes/create/textValueCard.vue';
+import FixedNumericValueCard from '~/components/attributes/create/fixedNumericValueCard.vue';
+import CalculatedNumericValueCard from '~/components/attributes/create/calculatedNumericValueCard.vue';
 
 const rulebookService = useRulebookService();
 const attributeTemplateService = useAttributeTemplateService();
@@ -175,6 +184,12 @@ const tagAutocompleteSearchValue: Ref<string> = ref('');
 const selectedGroup: Ref<GroupEntity | undefined> = ref(undefined);
 const groupAutocompleteSearchValue: Ref<string> = ref('');
 const groupAutocomplete = ref();
+
+const attributeTypeComponents = {
+  TextValue: TextValueCard,
+  FixedNumericValue: FixedNumericValueCard,
+  CalculatedNumericValue: CalculatedNumericValueCard,
+};
 
 const attributeOptions = [
   { title: 'Text', value: 'TextValue' },
