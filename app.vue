@@ -7,6 +7,7 @@
             <NuxtPage />
           </NuxtLayout>
           <confirmation-dialog />
+          <snackbar />
         </v-main>
       </v-app>
     </v-locale-provider>

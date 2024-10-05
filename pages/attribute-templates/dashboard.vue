@@ -47,6 +47,7 @@ import { useAttributeTemplateService } from '~/composables/useAttributeTemplateS
 const attributeService = useAttributeTemplateService();
 const rulebookService = useRulebookService();
 const confirmationDialog = useConfirmationDialog();
+const snackbar = useSnackbar();
 const route = useRoute();
 const router = useRouter();
 
@@ -80,6 +81,7 @@ async function deleteAttribute(attribute: AttributeEntity) {
       await attributeService.deleteAttribute(attribute._id);
       await refreshAttributes();
       confirmationDialog.close();
+      snackbar.success('Attribut erfolgreich gelöscht.');
     },
     () => {
       confirmationDialog.close();
@@ -97,6 +99,7 @@ function resetFilters() {
     rulebook: rulebooks.value![0]._id ?? undefined,
   };
   search();
+  snackbar.info('Filter zurückgesetzt.');
 }
 
 watch(searchPayload, (newSearch) => {
