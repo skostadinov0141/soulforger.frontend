@@ -13,8 +13,10 @@
   "dependencies": {
     "@nuxt/eslint": "^0.5.7",
     "@pinia/nuxt": "^0.5.5",
+    "@types/markdown-it": "^14.1.2",
     "@volar/language-server": "2.4.0-alpha.18",
     "@vue/language-server": "2.0.28",
+    "markdown-it": "^14.1.0",
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest",

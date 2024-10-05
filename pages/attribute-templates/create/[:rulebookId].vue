@@ -39,12 +39,7 @@
               variant="outlined"
               class="mb-4"
             />
-            <v-textarea
-              v-model="createPayload.description"
-              label="Beschreibung"
-              variant="outlined"
-              rows="10"
-            />
+            <markdown-editor />
           </v-card-text>
         </v-card>
       </v-col>
@@ -173,6 +168,7 @@ import type { GroupEntity } from '~/composables/entities/attribute/group.entity'
 import TextValueCard from '~/components/attributes/create/textValueCard.vue';
 import FixedNumericValueCard from '~/components/attributes/create/fixedNumericValueCard.vue';
 import CalculatedNumericValueCard from '~/components/attributes/create/calculatedNumericValueCard.vue';
+import MarkdownEditor from '~/components/markdown-editor/markdown-editor.vue';
 
 const rulebookService = useRulebookService();
 const attributeTemplateService = useAttributeTemplateService();
