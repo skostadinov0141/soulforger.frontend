@@ -10,6 +10,8 @@
             rounded
           >
             <v-select
+              v-model="currentHeading"
+              v-tooltip:top="'Überschrift einfügen (Strg + H)'"
               :disabled="preview"
               :items="headingOptions"
               label="Überschrift"
@@ -46,11 +48,11 @@
               divided
             >
               <v-btn
-                v-tooltip:top="'Ungeordnete Liste'"
+                v-tooltip:top="'Ungeordnete Liste (Strg + U) (Strg + Enter für eingerückte Liste)'"
                 icon="mdi-format-list-bulleted"
               />
               <v-btn
-                v-tooltip:top="'Geordnete Liste'"
+                v-tooltip:top="'Geordnete Liste (Strg + O) (Strg + Enter für eingerückte Liste)'"
                 icon="mdi-format-list-numbered"
               />
             </v-btn-toggle>
@@ -62,9 +64,21 @@
               class="mr-4"
             >
               <v-btn
-                v-tooltip:top="'Link einfügen'"
+                v-tooltip:top="'Link einfügen (Strg + L)'"
                 :disabled="preview"
                 icon="mdi-link"
+              />
+              <v-btn
+                v-tooltip:top="'Trennlinie einfügen (Strg + D)'"
+                :disabled="preview"
+                icon="mdi-minus"
+                @click="insertDivider"
+              />
+              <v-btn
+                v-tooltip:top="'Tabelle einfügen (Strg + T)'"
+                :disabled="preview"
+                icon="mdi-table"
+                @click="insertTable"
               />
             </v-btn-group>
             <v-spacer />
@@ -118,6 +132,7 @@ const parsedContent = computed(() => {
   const parsed = md.render(content.value);
   return `${parsed}`;
 });
+const currentHeading = ref('#');
 
 function applyMdOnKeydown(event: KeyboardEvent) {
   switch (event.key.toLowerCase()) {
@@ -133,7 +148,123 @@ function applyMdOnKeydown(event: KeyboardEvent) {
       event.preventDefault();
       insertLink();
       break;
+    case 'u':
+      event.preventDefault();
+      insertUnorderedList();
+      break;
+    case 'o':
+      event.preventDefault();
+      insertOrderedList();
+      break;
+    case 'enter':
+      event.preventDefault();
+      insertIndentedList();
+      break;
+    case 'h':
+      event.preventDefault();
+      addHeadingToBottom(currentHeading.value);
+      break;
+    case 'd':
+      event.preventDefault();
+      insertDivider();
+      break;
+    case 't':
+      event.preventDefault();
+      insertTable();
+      break;
   }
+}
+
+function insertTable() {
+  const start = mdTextarea.value.selectionStart;
+  const end = mdTextarea.value.selectionEnd;
+  const wrappedText = `| Spalte 1 | Spalte 2 |\n| --- | --- |\n| Zelle 1 | Zelle 2 |`;
+  content.value = `${content.value.substring(0, start)}${wrappedText}${content.value.substring(end)}`;
+  // Set new cursor position
+  const newCursorPos = start + wrappedText.length;
+
+  // Use nextTick to ensure the textarea has been updated
+  nextTick(() => {
+    mdTextarea.value.focus();
+    mdTextarea.value.setSelectionRange(newCursorPos, newCursorPos);
+  });
+}
+
+function insertDivider() {
+  const start = mdTextarea.value.selectionStart;
+  const end = mdTextarea.value.selectionEnd;
+  const wrappedText = `\n***\n`;
+  content.value = `${content.value.substring(0, start)}${wrappedText}${content.value.substring(end)}`;
+  // Set new cursor position
+  const newCursorPos = start + wrappedText.length;
+
+  // Use nextTick to ensure the textarea has been updated
+  nextTick(() => {
+    mdTextarea.value.focus();
+    mdTextarea.value.setSelectionRange(newCursorPos, newCursorPos);
+  });
+}
+
+function getListType() {
+  const start = mdTextarea.value.selectionStart;
+  const end = mdTextarea.value.selectionEnd;
+  const startOfLine = content.value.lastIndexOf('\n', start - 1) + 1;
+  let endOfLine = content.value.indexOf('\n', end);
+  if (endOfLine === -1) {
+    endOfLine = content.value.length;
+  }
+  const currentLine = content.value.substring(startOfLine, endOfLine);
+  const startsWithDashRegex = /^(\s*-\s)/;
+  return startsWithDashRegex.test(currentLine) ? 'unordered' : 'ordered';
+}
+
+function insertIndentedList() {
+  const start = mdTextarea.value.selectionStart;
+  const end = mdTextarea.value.selectionEnd;
+  const selectedText = content.value.substring(start, end);
+  const listType = getListType();
+  const wrappedText = `\n  ${listType === 'ordered' ? '1.1' : '-'} ${selectedText}`;
+  content.value = `${content.value.substring(0, start)}${wrappedText}${content.value.substring(end)}`;
+  // Set new cursor position
+  const newCursorPos = start + wrappedText.length;
+
+  // Use nextTick to ensure the textarea has been updated
+  nextTick(() => {
+    mdTextarea.value.focus();
+    mdTextarea.value.setSelectionRange(newCursorPos, newCursorPos);
+  });
+}
+
+function insertOrderedList() {
+  const start = mdTextarea.value.selectionStart;
+  const end = mdTextarea.value.selectionEnd;
+  const selectedText = content.value.substring(start, end);
+  const wrappedText = `\n1. ${selectedText}`;
+  content.value = `${content.value.substring(0, start)}${wrappedText}${content.value.substring(end)}`;
+  // Set new cursor position
+  const newCursorPos = start + wrappedText.length;
+
+  // Use nextTick to ensure the textarea has been updated
+  nextTick(() => {
+    mdTextarea.value.focus();
+    mdTextarea.value.setSelectionRange(newCursorPos, newCursorPos);
+  });
+}
+
+function insertUnorderedList() {
+  const start = mdTextarea.value.selectionStart;
+  const end = mdTextarea.value.selectionEnd;
+  const selectedText = content.value.substring(start, end);
+  const wrappedText = `\n- ${selectedText}`;
+  content.value = `${content.value.substring(0, start)}${wrappedText}${content.value.substring(end)}`;
+  // Set new cursor position
+  const newCursorPos = start + wrappedText.length;
+
+  // Use nextTick to ensure the textarea has been updated
+  nextTick(() => {
+    mdTextarea.value.focus();
+    mdTextarea.value.setSelectionRange(newCursorPos, newCursorPos);
+  });
 }
 
 function insertLink() {
@@ -219,5 +350,19 @@ const headingOptions = [
 
 .markdown-preview :deep(h5) {
   margin-top: 4px;
+}
+
+.markdown-preview :deep(table) {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-preview :deep(th),
+.markdown-preview :deep(td) {
+  border: 1px solid #e0e0e0;
+  padding: 8px;
 }
 </style>
