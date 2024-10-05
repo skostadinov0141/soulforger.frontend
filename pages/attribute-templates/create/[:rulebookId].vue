@@ -39,7 +39,7 @@
               variant="outlined"
               class="mb-4"
             />
-            <markdown-editor />
+            <markdown-editor v-model="createPayload.description" />
           </v-card-text>
         </v-card>
       </v-col>

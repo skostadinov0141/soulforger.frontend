@@ -122,11 +122,14 @@
 
 <script setup lang="ts">
 import markdownit from 'markdown-it';
+import type { ModelRef } from 'vue';
 
 const mdTextarea = ref();
 
 const preview = ref(false);
-const content = ref('');
+const content: ModelRef<string> = defineModel<string>({
+  required: true,
+});
 const parsedContent = computed(() => {
   const md = markdownit();
   const parsed = md.render(content.value);
