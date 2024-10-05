@@ -176,6 +176,7 @@ import CalculatedNumericValueCard from '~/components/attributes/create/calculate
 
 const rulebookService = useRulebookService();
 const attributeTemplateService = useAttributeTemplateService();
+const snackbar = useSnackbar();
 const route = useRoute();
 
 const createPayload: Ref<CreateAttributeTemplateDto> = ref<CreateAttributeTemplateDto>({
@@ -270,10 +271,12 @@ watch(selectedTags.value, (newTags) => {
 
 function addTag() {
   if (tagAutocompleteSearchValue.value === '') {
+    snackbar.error('Bitte gib einen Tag-Namen ein.');
     return;
   }
   if (selectedTags.value.some(tag => tag.name === tagAutocompleteSearchValue.value)) {
     tagAutocompleteSearchValue.value = '';
+    snackbar.error('Dieser Tag wurde bereits hinzugefügt.');
     return;
   }
   const newTag: TagEntity = {
@@ -289,10 +292,12 @@ function addTag() {
 
 function addGroup() {
   if (groupAutocompleteSearchValue.value === '') {
+    snackbar.error('Bitte gib einen Gruppen-Namen ein.');
     return;
   }
   if (selectedGroup.value !== undefined && selectedGroup.value.name === groupAutocompleteSearchValue.value) {
     groupAutocompleteSearchValue.value = '';
+    snackbar.error('Diese Gruppe wurde bereits hinzugefügt.');
     return;
   }
   selectedGroup.value = {
@@ -307,6 +312,7 @@ function addGroup() {
 
 async function createAttributeTemplate() {
   await attributeTemplateService.create(createPayload.value);
+  snackbar.success('Attribut erfolgreich erstellt.');
   navigateTo({ path: `/attribute-templates/dashboard` });
 }
 </script>

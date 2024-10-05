@@ -166,6 +166,7 @@ import type {
 } from '~/composables/dtos/attribute-template/create.post.dto';
 
 const attributeTemplateService = useAttributeTemplateService();
+const snackbar = useSnackbar();
 
 const model
     = defineModel<CreateAttributeCalculatedNumericValueTemplateDto | undefined>();
@@ -237,27 +238,36 @@ function addDiceRoll() {
   if (!createdDiceRoll.value.name || !createdDiceRoll.value.diceAmount || !createdDiceRoll.value.diceSides) return;
   if (model.value?.diceRolls.some(dr => dr.name === createdDiceRoll.value.name)) return;
   model.value?.diceRolls.push(createdDiceRoll.value);
+  snackbar.success('Würfel hinzugefügt.');
   resetDiceRoll();
   diceRollInput.value.focus();
 }
 
 function removeDiceRoll(index: number) {
   model.value?.diceRolls.splice(index, 1);
+  snackbar.success('Würfel entfernt.');
 }
 
 function createVariable() {
-  if (!selectedFieldPathName.value || !selectedFieldPath.value) return;
+  if (!selectedFieldPathName.value || !selectedFieldPath.value) {
+    snackbar.error('Bitte wähle ein Feld aus.');
+    return;
+  }
   const variable: CreateAttributeCharacterFieldPathTemplateDto = {
     name: selectedFieldPathName.value!,
     path: selectedFieldPath.value!,
   };
-  if (model.value?.variables.some(v => v.name === variable.name)) return;
+  if (model.value?.variables.some(v => v.name === variable.name)) {
+    snackbar.error('Variable existiert bereits.');
+    return;
+  }
   model.value?.variables.push(variable);
   selectedFieldPathName.value = undefined;
 }
 
 function removeVariable(index: number) {
   model.value?.variables.splice(index, 1);
+  snackbar.success('Variable entfernt.');
 }
 </script>
 

@@ -55,6 +55,8 @@
 import type { ModelRef } from 'vue';
 import type { CreateAttributeTextValueTemplateDto } from '~/composables/dtos/attribute-template/create.post.dto';
 
+const snackbar = useSnackbar();
+
 const option: Ref<string> = ref<string>('');
 
 const model: ModelRef<CreateAttributeTextValueTemplateDto | undefined>
@@ -62,9 +64,11 @@ const model: ModelRef<CreateAttributeTextValueTemplateDto | undefined>
 
 function createOption() {
   if (option.value === '') {
+    snackbar.error('Option darf nicht leer sein.');
     return;
   }
   if (model.value!.options.some(o => o === option.value)) {
+    snackbar.error('Option existiert bereits.');
     return;
   }
   model.value!.options.push(option.value);
