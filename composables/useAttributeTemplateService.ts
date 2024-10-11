@@ -18,28 +18,28 @@ export function useAttributeTemplateService() {
 
   async function search(payload: SearchAttributeTemplateDto): Promise<AttributeEntity[]> {
     addDefaultsForSearch(payload);
-    return clientApi<AttributeEntity[]>('/character/attribute/template/search', {
+    return clientApi<AttributeEntity[]>('/attribute-template/search', {
       method: 'POST',
       body: payload,
     });
   }
 
-  function getAllTags(): Promise<TagEntity[]> {
-    return clientApi<TagEntity[]>('/character/attribute/template/tags');
+  function getAllTags(rulebookId: string): Promise<TagEntity[]> {
+    return clientApi<TagEntity[]>(`/tag/rulebook/${rulebookId}`);
   }
 
-  async function getAllGroups(): Promise<GroupEntity[]> {
-    return clientApi('/character/attribute/template/groups');
+  async function getAllGroups(rulebookId: string): Promise<GroupEntity[]> {
+    return clientApi(`/group/rulebook/${rulebookId}`);
   }
 
   function deleteAttribute(id: string): Promise<void> {
-    return clientApi(`/character/attribute/template/${id}`, {
+    return clientApi(`/attribute-template/${id}`, {
       method: 'DELETE',
     });
   }
 
   function create(payload: CreateAttributeTemplateDto): Promise<AttributeEntity> {
-    return clientApi<AttributeEntity>('/character/attribute/template', {
+    return clientApi<AttributeEntity>('/attribute-template', {
       method: 'POST',
       body: payload,
     });
