@@ -185,9 +185,16 @@ const createPayload: Ref<CreateAttributeTemplateDto> = ref<CreateAttributeTempla
   attributeValue: undefined,
 });
 
-const { data: rulebooks } = useAsyncData('rulebooks', () => rulebookService.getAll());
-const { data: tags } = useAsyncData('tags', () => attributeTemplateService.getAllTags());
-const { data: groups } = useAsyncData('groups', () => attributeTemplateService.getAllGroups());
+const { data: rulebooks } = useAsyncData(
+  'rulebooks',
+  () => rulebookService.getAll());
+const { data: tags } = useAsyncData(
+  'tags',
+  () => attributeTemplateService.getAllTags(createPayload.value.rulebook));
+const { data: groups } = useAsyncData(
+  'groups',
+  () => attributeTemplateService.getAllGroups(createPayload.value.rulebook),
+);
 
 const selectedTags: Ref<TagEntity[]> = ref([]);
 const tagAutocompleteSearchValue: Ref<string> = ref('');

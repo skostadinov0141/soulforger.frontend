@@ -51,12 +51,16 @@ const snackbar = useSnackbar();
 const route = useRoute();
 const router = useRouter();
 
-const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags());
-const { data: groups } = await useAsyncData('groups', () => attributeService.getAllGroups());
+const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags(
+  route.query.rulebook as string ?? rulebooks.value![0]._id ?? undefined,
+));
+const { data: groups } = await useAsyncData('groups', () => attributeService.getAllGroups(
+  route.query.rulebook as string ?? rulebooks.value![0]._id ?? undefined,
+));
 const { data: rulebooks } = await useAsyncData('rulebooks', () => rulebookService.getAll());
 
 const searchPayload: Ref<SearchAttributeTemplateDto> = ref({
-  searchString: route.query.searchString as string ?? '',
+  searchString: route.query.searchString as string ?? undefined,
   sortBy: route.query.sortBy as string ?? 'name',
   sortOrder: parseInt(route.query.sortOrder as string ?? '1', 10),
   includeTags: route.query.includeTags as string[] ?? [],
