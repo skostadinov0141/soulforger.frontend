@@ -115,7 +115,6 @@ watch(searchPayload, (newSearch) => {
 }, { deep: true });
 
 watch(() => searchPayload.value.rulebook, (value, oldValue) => {
-  console.log(value, oldValue);
   if (value !== oldValue) {
     refreshTags();
     refreshGroups();
