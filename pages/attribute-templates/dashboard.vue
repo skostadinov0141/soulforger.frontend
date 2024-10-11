@@ -51,10 +51,10 @@ const snackbar = useSnackbar();
 const route = useRoute();
 const router = useRouter();
 
-const { data: tags } = await useAsyncData('tags', () => attributeService.getAllTags(
+const { data: tags, refresh: refreshTags } = await useAsyncData('tags', () => attributeService.getAllTags(
   route.query.rulebook as string ?? rulebooks.value![0]._id ?? undefined,
 ));
-const { data: groups } = await useAsyncData('groups', () => attributeService.getAllGroups(
+const { data: groups, refresh: refreshGroups } = await useAsyncData('groups', () => attributeService.getAllGroups(
   route.query.rulebook as string ?? rulebooks.value![0]._id ?? undefined,
 ));
 const { data: rulebooks } = await useAsyncData('rulebooks', () => rulebookService.getAll());
@@ -112,6 +112,14 @@ watch(searchPayload, (newSearch) => {
       ...newSearch,
     },
   });
+}, { deep: true });
+
+watch(() => searchPayload.value.rulebook, (value, oldValue) => {
+  console.log(value, oldValue);
+  if (value !== oldValue) {
+    refreshTags();
+    refreshGroups();
+  }
 }, { deep: true });
 </script>
 
