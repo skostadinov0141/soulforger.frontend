@@ -48,7 +48,7 @@
           <v-btn
             variant="text"
             icon="mdi-eye"
-            @click="console.log(item)"
+            @click="navigateTo(`/attribute-templates/view/${item._id}`)"
           />
           <v-btn
             variant="text"
