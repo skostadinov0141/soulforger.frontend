@@ -39,26 +39,16 @@
               variant="outlined"
               class="mb-4"
             />
-            <md-editor
+            <markdown-editor
               v-model="createPayload.description"
-              language="en-US"
-              :toolbars-exclude="[
-                'fullscreen',
-                'pageFullscreen',
-                'github',
-                'save',
-              ]"
-              editor-id="create-attribute-description-md-editor"
-              class="rounded"
-              :theme="theme.name.value as Themes"
+              height="600px"
             />
-            <!--            <markdown-editor v-model="createPayload.description" /> -->
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12">
         <v-card
-          :disabled="createPayload.name === '' || createPayload.description === ''"
+          :disabled="createPayload.name === '' || createPayload.description === '' || !createPayload.description"
           elevation="2"
           class="border-thin"
           title="Schritt 3: Tags"
@@ -95,7 +85,7 @@
       </v-col>
       <v-col cols="12">
         <v-card
-          :disabled="createPayload.name === '' || createPayload.description === ''"
+          :disabled="createPayload.name === '' || createPayload.description === '' || !createPayload.description"
           elevation="2"
           class="border-thin"
           title="Schritt 4: Gruppe"
@@ -130,7 +120,7 @@
       </v-col>
       <v-col cols="12">
         <v-card
-          :disabled="createPayload.name === '' || createPayload.description === ''"
+          :disabled="createPayload.name === '' || createPayload.description === '' || !createPayload.description"
           elevation="2"
           class="border-thin"
           title="Schritt 5: Attributwert"
@@ -158,7 +148,7 @@
       </v-col>
       <v-col cols="12">
         <v-btn
-          :disabled="createPayload.name === '' || createPayload.description === ''"
+          :disabled="createPayload.name === '' || createPayload.description === '' || !createPayload.description"
           color="primary"
           block
           prepend-icon="mdi-plus"
@@ -172,8 +162,6 @@
 </template>
 
 <script setup lang="ts">
-import { MdEditor, type Themes } from 'md-editor-v3';
-import 'md-editor-v3/lib/style.css';
 import type {
   CreateAttributeTag,
   CreateAttributeTemplateDto,
@@ -188,12 +176,11 @@ const rulebookService = useRulebookService();
 const attributeTemplateService = useAttributeTemplateService();
 const snackbar = useSnackbar();
 const route = useRoute();
-const theme = useTheme();
 
 const createPayload: Ref<CreateAttributeTemplateDto> = ref<CreateAttributeTemplateDto>({
   rulebook: route.params.rulebookId as string,
-  name: '',
-  description: '',
+  name: undefined,
+  description: undefined,
   tags: [],
   group: undefined,
   attributeType: undefined,

@@ -38,8 +38,8 @@ export class CreateAttributeDiceRollTemplateDto {
 
 export class CreateAttributeTemplateDto {
   rulebook: string;
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
   attributeType?: string;
   attributeValue?:
     | CreateAttributeTextValueTemplateDto
