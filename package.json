@@ -17,6 +17,7 @@
     "@volar/language-server": "2.4.0-alpha.18",
     "@vue/language-server": "2.0.28",
     "markdown-it": "^14.1.0",
+    "md-editor-v3": "^4.21.0",
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest",

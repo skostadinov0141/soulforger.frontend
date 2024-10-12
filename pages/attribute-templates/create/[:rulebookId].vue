@@ -39,7 +39,20 @@
               variant="outlined"
               class="mb-4"
             />
-            <markdown-editor v-model="createPayload.description" />
+            <md-editor
+              v-model="createPayload.description"
+              language="en-US"
+              :toolbars-exclude="[
+                'fullscreen',
+                'pageFullscreen',
+                'github',
+                'save',
+              ]"
+              editor-id="create-attribute-description-md-editor"
+              class="rounded"
+              :theme="theme.name.value as Themes"
+            />
+            <!--            <markdown-editor v-model="createPayload.description" /> -->
           </v-card-text>
         </v-card>
       </v-col>
@@ -159,6 +172,8 @@
 </template>
 
 <script setup lang="ts">
+import { MdEditor, type Themes } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 import type {
   CreateAttributeTag,
   CreateAttributeTemplateDto,
@@ -168,12 +183,12 @@ import type { GroupEntity } from '~/composables/entities/attribute/group.entity'
 import TextValueCard from '~/components/attributes/create/textValueCard.vue';
 import FixedNumericValueCard from '~/components/attributes/create/fixedNumericValueCard.vue';
 import CalculatedNumericValueCard from '~/components/attributes/create/calculatedNumericValueCard.vue';
-import MarkdownEditor from '~/components/markdown-editor/markdown-editor.vue';
 
 const rulebookService = useRulebookService();
 const attributeTemplateService = useAttributeTemplateService();
 const snackbar = useSnackbar();
 const route = useRoute();
+const theme = useTheme();
 
 const createPayload: Ref<CreateAttributeTemplateDto> = ref<CreateAttributeTemplateDto>({
   rulebook: route.params.rulebookId as string,
