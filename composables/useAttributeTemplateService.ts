@@ -24,6 +24,10 @@ export function useAttributeTemplateService() {
     });
   }
 
+  async function getAttributeTemplate(id: string): Promise<AttributeEntity> {
+    return clientApi<AttributeEntity>(`/attribute-template/${id}`);
+  }
+
   function getAllTags(rulebookId: string): Promise<TagEntity[]> {
     return clientApi<TagEntity[]>(`/tag/rulebook/${rulebookId}`);
   }
@@ -53,6 +57,7 @@ export function useAttributeTemplateService() {
 
   return {
     search,
+    getAttributeTemplate,
     getAllTags,
     getAllGroups,
     deleteAttribute,
