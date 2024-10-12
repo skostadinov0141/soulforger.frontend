@@ -46,7 +46,7 @@ export function useAttributeTemplateService() {
   }
 
   function getPathRegistries(rulebookId: string): Promise<PathRegistryEntity[]> {
-    return clientApi<PathRegistryEntity[]>(`/character/attribute/template/pathRegistry/${rulebookId}`, {
+    return clientApi<PathRegistryEntity[]>(`/attribute-template/path-registry/${rulebookId}`, {
       method: 'GET',
     });
   }
