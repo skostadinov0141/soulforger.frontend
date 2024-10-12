@@ -1,7 +1,8 @@
 <template>
-  <pre>
-    {{ JSON.stringify(attributeTemplate, undefined, 2) }}
-  </pre>
+  <div>
+    <h1>Attribute Template</h1>
+    <p>{{ attributeTemplate?.name }}</p>
+  </div>
 </template>
 
 <script setup lang="ts">
