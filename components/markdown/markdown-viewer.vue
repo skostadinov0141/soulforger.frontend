@@ -3,7 +3,6 @@
     v-model="model"
     :style="{
       height: height,
-      // backgroundColor: theme.current.value.colors.surface,
     }"
     language="en-US"
     :toolbars-exclude="[
@@ -19,7 +18,7 @@
       'save',
     ]"
     editor-id="create-attribute-description-md-editor"
-    class="rounded bg-surface border-thin"
+    :class="`rounded ${transparent ? 'bg-transparent' : 'border-thin bg-transparent'}`"
     :theme="theme.name.value as Themes"
   />
 </template>
@@ -34,7 +33,9 @@ const model = defineModel<string | undefined>({ required: true });
 
 withDefaults(defineProps<{
   height?: string
+  transparent?: boolean
 }>(), {
   height: '600px',
+  transparent: false,
 });
 </script>
