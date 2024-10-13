@@ -10,7 +10,12 @@ export function useRulebookService() {
     });
   }
 
+  function getOne(id: string) {
+    return api<RulebookEntity>(`/rulebook/${id}`);
+  }
+
   return {
     getAll,
+    getOne,
   };
 }
