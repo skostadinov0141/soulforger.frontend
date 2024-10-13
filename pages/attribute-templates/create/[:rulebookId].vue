@@ -78,13 +78,18 @@
           </template>
         </v-autocomplete>
       </v-col>
+      <v-col cols="12">
+        <markdown-editor
+          v-model="payload.description"
+          height="600px"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import type {
-  CreateAttributeGroup,
   CreateAttributeTag,
   CreateAttributeTemplateDto,
 } from '~/composables/dtos/attribute-template/create.post.dto';
@@ -176,12 +181,11 @@ function createGroup(group: string) {
     snackbar.error('Gruppe bereits vorhanden oder reserviert');
     return;
   }
-  const groupPayload: CreateAttributeGroup = {
+  payload.value.group = {
     name: group,
     for: 'attribute',
   };
-  payload.value.group = groupPayload;
-  groupSearch.value.blur();
+  groupSearch.value!.blur();
 }
 // </editor-fold>
 </script>
