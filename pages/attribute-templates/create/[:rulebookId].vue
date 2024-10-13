@@ -96,6 +96,7 @@
         <component
           :is="currentComponent as any"
           v-model="payload.attributeValue"
+          :paths="attributePaths"
         />
       </v-col>
     </v-row>
@@ -220,6 +221,7 @@ const currentComponent = computed(() => {
     case 'FixedNumericValue':
       return FixedNumericValueCard;
     case 'CalculatedNumericValue':
+      getAttributePaths();
       return CalculatedNumericValueCard;
     case 'TextValue':
       return TextValueCard;
