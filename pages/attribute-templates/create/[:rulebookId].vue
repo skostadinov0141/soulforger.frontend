@@ -31,10 +31,27 @@
           return-object
           :items="attributeTags ?? []"
           @keydown.enter="createTag(tagsSearchValue)"
-        />
+        >
+          <template #no-data>
+            <v-list-item
+              class="d-flex"
+              density="compact"
+            >
+              <v-chip
+                density="compact"
+                label
+                class="mr-1"
+                prepend-icon="mdi-keyboard-return"
+                text="Enter"
+              />
+              drücken um Tag zu erstellen
+            </v-list-item>
+          </template>
+        </v-autocomplete>
       </v-col>
       <v-col cols="6">
         <v-autocomplete
+          ref="groupSearch"
           v-model="payload.group"
           v-model:search="groupSearchValue"
           prepend-inner-icon="mdi-account-group"
@@ -42,7 +59,24 @@
           item-title="name"
           return-object
           :items="attributeGroups ?? []"
-        />
+          @keydown.enter.prevent="createGroup(groupSearchValue)"
+        >
+          <template #no-data>
+            <v-list-item
+              class="d-flex"
+              density="compact"
+            >
+              <v-chip
+                density="compact"
+                label
+                class="mr-1"
+                prepend-icon="mdi-keyboard-return"
+                text="Enter"
+              />
+              drücken um Gruppe zu erstellen
+            </v-list-item>
+          </template>
+        </v-autocomplete>
       </v-col>
     </v-row>
   </v-container>
@@ -50,6 +84,7 @@
 
 <script setup lang="ts">
 import type {
+  CreateAttributeGroup,
   CreateAttributeTag,
   CreateAttributeTemplateDto,
 } from '~/composables/dtos/attribute-template/create.post.dto';
@@ -96,10 +131,19 @@ const tagsSearchValue: Ref<string> = ref('');
 const groupSearchValue: Ref<string> = ref('');
 // </editor-fold>
 
+// <editor-fold desc="Template Refs">
+const groupSearch = ref<HTMLElement>();
+// </editor-fold>
+
 // <editor-fold desc="Methods">
 function createTag(tag: string) {
   if (attributeTags.value!.some(t => t.name === tag)) {
     tagsSearchValue.value = '';
+    return;
+  }
+  if (tag.length < 4) {
+    tagsSearchValue.value = '';
+    snackbar.error('Tag muss mindestens 4 Zeichen lang sein');
     return;
   }
   // ensure that the tag is not already present
@@ -114,6 +158,30 @@ function createTag(tag: string) {
   };
   payload.value.tags.push(tagPaload);
   tagsSearchValue.value = '';
+}
+
+function createGroup(group: string) {
+  if (attributeGroups.value!.some(g => g.name === group)) {
+    groupSearchValue.value = '';
+    return;
+  }
+  if (group.length < 4) {
+    groupSearchValue.value = '';
+    snackbar.error('Gruppe muss mindestens 4 Zeichen lang sein');
+    return;
+  }
+  // ensure that the group is not already present
+  if (payload.value.group?.name === group) {
+    groupSearchValue.value = '';
+    snackbar.error('Gruppe bereits vorhanden oder reserviert');
+    return;
+  }
+  const groupPayload: CreateAttributeGroup = {
+    name: group,
+    for: 'attribute',
+  };
+  payload.value.group = groupPayload;
+  groupSearch.value.blur();
 }
 // </editor-fold>
 </script>
