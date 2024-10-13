@@ -84,6 +84,14 @@
           height="600px"
         />
       </v-col>
+      <v-col cols="12">
+        <v-select
+          v-model="payload.attributeType"
+          label="Attributtyp"
+          :items="valueTypeOptions"
+          prepend-inner-icon="mdi-format-list-numbered"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -138,6 +146,14 @@ const groupSearchValue: Ref<string> = ref('');
 
 // <editor-fold desc="Template Refs">
 const groupSearch = ref<HTMLElement>();
+// </editor-fold>
+
+// <editor-fold desc="Static Values">
+const valueTypeOptions = [
+  { title: 'Einfache Zahl', value: 'FixedNumericValue' },
+  { title: 'Berechnete Zahl', value: 'CalculatedNumericValue' },
+  { title: 'Text', value: 'TextValue' },
+];
 // </editor-fold>
 
 // <editor-fold desc="Methods">
