@@ -103,11 +103,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-  CreateAttributeCalculatedNumericValueTemplateDto,
-  type CreateAttributeFixedNumericValueTemplateDto,
-  type CreateAttributeTag,
-  type CreateAttributeTemplateDto,
+import type {
+  CreateAttributeTag,
+  CreateAttributeTemplateDto,
 } from '~/composables/dtos/attribute-template/create.post.dto';
 import CalculatedNumericValueCard from '~/components/attributes/create/calculatedNumericValueCard.vue';
 import FixedNumericValueCard from '~/components/attributes/create/fixedNumericValueCard.vue';
