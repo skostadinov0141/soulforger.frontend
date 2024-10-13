@@ -1,79 +1,98 @@
 <template>
-  <v-row no-gutters>
+  <v-row>
     <v-col cols="12">
       <v-text-field
         v-model="option"
         variant="outlined"
-        class="mt-4"
         label="Option"
-        @keydown.enter.prevent="createOption"
+        @keydown.enter="createOption"
       />
       <p class="text-medium-emphasis mt-2 text-caption">
         <v-chip
           label
           density="compact"
           class="text-caption"
+          prepend-icon="mdi-keyboard-return"
         >
           Enter
         </v-chip> drücken um Option hinzuzufügen.
       </p>
-      <v-card
-        v-if="model!.options.length > 0"
-        class="border-thin mt-4"
-        elevation="0"
+    </v-col>
+    <v-col
+      v-if="modelValue.options.length > 0"
+      cols="12"
+    >
+      <v-list
+        class="py-0 border-thin"
+        rounded
+        bg-color="transparent"
       >
-        <v-list
-          max-height="300px"
-          density="comfortable"
-          class="py-0"
+        <template
+          v-for="(optionItem, index) in modelValue.options"
+          :key="index"
         >
-          <template
-            v-for="(optionItem, index) in model!.options"
-            :key="index"
-          >
-            <v-divider v-if="index !== 0" />
-            <v-list-item>
-              {{ optionItem }}
-              <template #append>
-                <v-btn
-                  icon="mdi-delete"
-                  variant="text"
-                  color="error"
-                  density="compact"
-                  @click="model!.options.splice(index, 1)"
-                />
-              </template>
-            </v-list-item>
-          </template>
-        </v-list>
-      </v-card>
+          <v-divider v-if="index !== 0" />
+          <v-list-item>
+            {{ optionItem }}
+            <template #append>
+              <v-btn
+                icon="mdi-delete"
+                color="error"
+                density="compact"
+                variant="text"
+                @click="removeOption(index)"
+              />
+            </template>
+          </v-list-item>
+        </template>
+      </v-list>
     </v-col>
   </v-row>
 </template>
 
 <script setup lang="ts">
-import type { ModelRef } from 'vue';
 import type { CreateAttributeTextValueTemplateDto } from '~/composables/dtos/attribute-template/create.post.dto';
 
 const snackbar = useSnackbar();
 
-const option: Ref<string> = ref<string>('');
+const option = ref<string>('');
 
-const model: ModelRef<CreateAttributeTextValueTemplateDto | undefined>
-    = defineModel<CreateAttributeTextValueTemplateDto>();
+const modelValue = defineModel<CreateAttributeTextValueTemplateDto>({
+  default: () => ({
+    options: [],
+  }),
+  required: true,
+});
 
 function createOption() {
   if (option.value === '') {
     snackbar.error('Option darf nicht leer sein.');
     return;
   }
-  if (model.value!.options.some(o => o === option.value)) {
+  if (modelValue.value.options.some(o => o === option.value)) {
     snackbar.error('Option existiert bereits.');
     return;
   }
-  model.value!.options.push(option.value);
+  const newOptions = [...modelValue.value.options, option.value];
+  modelValue.value = {
+    ...modelValue.value,
+    options: newOptions,
+  };
   option.value = '';
 }
+
+function removeOption(index: number) {
+  const newOptions = [...modelValue.value.options];
+  newOptions.splice(index, 1);
+  modelValue.value = {
+    ...modelValue.value,
+    options: newOptions,
+  };
+}
+
+watch(modelValue, () => {
+  console.log(modelValue.value);
+}, { deep: true });
 </script>
 
 <style scoped>
