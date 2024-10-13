@@ -92,15 +92,26 @@
           prepend-inner-icon="mdi-format-list-numbered"
         />
       </v-col>
+      <v-col cols="12">
+        <component
+          :is="currentComponent as any"
+          v-model="payload.attributeValue"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import type {
-  CreateAttributeTag,
-  CreateAttributeTemplateDto,
+import {
+  CreateAttributeCalculatedNumericValueTemplateDto,
+  type CreateAttributeFixedNumericValueTemplateDto,
+  type CreateAttributeTag,
+  type CreateAttributeTemplateDto,
 } from '~/composables/dtos/attribute-template/create.post.dto';
+import CalculatedNumericValueCard from '~/components/attributes/create/calculatedNumericValueCard.vue';
+import FixedNumericValueCard from '~/components/attributes/create/fixedNumericValueCard.vue';
+import TextValueCard from '~/components/attributes/create/textValueCard.vue';
 
 const rulebookService = useRulebookService();
 const attributeTemplateService = useAttributeTemplateService();
@@ -179,7 +190,7 @@ function createTag(tag: string) {
   };
   payload.value.tags.push(tagPaload);
   tagsSearchValue.value = '';
-}
+};
 
 function createGroup(group: string) {
   if (attributeGroups.value!.some(g => g.name === group)) {
@@ -203,6 +214,21 @@ function createGroup(group: string) {
   };
   groupSearch.value!.blur();
 }
+// </editor-fold>
+
+// <editor-fold desc="Computed Refs">
+const currentComponent = computed(() => {
+  switch (payload.value.attributeType) {
+    case 'FixedNumericValue':
+      return FixedNumericValueCard;
+    case 'CalculatedNumericValue':
+      return CalculatedNumericValueCard;
+    case 'TextValue':
+      return TextValueCard;
+    default:
+      return undefined;
+  }
+});
 // </editor-fold>
 </script>
 
