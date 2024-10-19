@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form v-model="formValid">
     <v-row>
       <v-col cols="4">
         <v-autocomplete
@@ -59,19 +59,24 @@
               v-model="currentDiceRoll.name"
               label="Würfelname"
               prepend-inner-icon="mdi-tag"
+              :rules="[validateAllowedCharacters]"
             />
           </v-col>
           <v-col>
             <v-text-field
               v-model="currentDiceRoll.diceAmount"
               label="Anzahl"
+              type="number"
+              hide-spin-buttons
               prepend-inner-icon="mdi-dice-multiple"
             />
           </v-col>
-          <v-col class="d-flex align-center">
+          <v-col class="d-flex align-start">
             <v-text-field
               v-model="currentDiceRoll.diceSides"
               label="Seitenanzahl"
+              type="number"
+              hide-spin-buttons
               prepend-inner-icon="mdi-dice-d20"
             />
             <v-btn
@@ -150,6 +155,7 @@
         <v-text-field
           v-model="model.formula"
           label="Formel"
+          :rules="[validateAllowedCharacters]"
           prepend-inner-icon="mdi-function-variant"
         />
       </v-col>
@@ -189,6 +195,7 @@ const model = ref<CreateAttributeCalculatedNumericValueTemplateDto>({
   variables: [],
   diceRolls: [],
 });
+const formValid = ref<boolean>(false);
 
 const parsedFormula = computed(() => {
   if (!model.value.formula) return 'Formel';
@@ -291,6 +298,18 @@ function addVariable() {
     variables: newVariables as [],
   };
   snackbar.success('Variable hinzugefügt');
+}
+
+function validateAllowedCharacters(val: string) {
+  // non allowed characters are '= " % < >'
+  const valid
+      = !val.includes('=')
+      && !val.includes('"')
+      && !val.includes('%')
+      && !val.includes('<')
+      && !val.includes('>');
+  if (valid) return true;
+  return 'Ungültige Zeichen: = " % < >';
 }
 </script>
 
