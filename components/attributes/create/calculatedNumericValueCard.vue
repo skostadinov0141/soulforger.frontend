@@ -1,6 +1,6 @@
 <template>
-  <v-row>
-    <v-form>
+  <v-form>
+    <v-row>
       <v-col cols="4">
         <v-autocomplete
           v-model="currentAttribute"
@@ -170,8 +170,8 @@
           <div v-html="parsedFormula" />
         </v-card>
       </v-col>
-    </v-form>
-  </v-row>
+    </v-row>
+  </v-form>
 </template>
 
 <script setup lang="ts">
