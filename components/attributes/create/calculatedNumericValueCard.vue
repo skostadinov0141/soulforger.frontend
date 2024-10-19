@@ -15,7 +15,7 @@
       class="d-flex align-center"
     >
       <v-text-field
-        :value="currentAttribute?.path ?? undefined"
+        :model-value="currentAttribute?.path || undefined"
         readonly
         disabled
         label="Pfad"
@@ -31,34 +31,25 @@
       v-if="model.variables.length > 0"
       cols="12"
     >
-      <v-list
-        variant="text"
-        max-height="300px"
-        class="my-0"
-        bg-color="transparent"
-        rounded
-      >
-        <template
+      <v-row dense>
+        <v-col
           v-for="(variable, index) in model.variables"
-          :key="`variable-list-item-${index}`"
+          :key="`variable-chip-${index}`"
+          cols="auto"
         >
-          <v-divider v-if="index !== 0" />
-          <v-list-item>
+          <v-chip
+            closable
+            @click:close="removeVariable(index)"
+          >
             {{ variable.name }}
-            <template #append>
-              <v-btn
-                icon
-                variant="text"
-                density="compact"
-                color="error"
-                @click="removeVariable(index)"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
+            <template #close>
+              <v-icon color="error">
+                mdi-delete
+              </v-icon>
             </template>
-          </v-list-item>
-        </template>
-      </v-list>
+          </v-chip>
+        </v-col>
+      </v-row>
     </v-col>
     <v-col cols="12">
       <v-row>
@@ -97,34 +88,25 @@
       v-if="model.diceRolls.length > 0"
       cols="12"
     >
-      <v-list
-        class="py-0 border-thin"
-        rounded
-        variant="text"
-        max-height="300px"
-        bg-color="transparent"
-      >
-        <template
+      <v-row dense>
+        <v-col
           v-for="(diceRoll, index) in model.diceRolls"
-          :key="`dice-roll-list-item-${index}`"
+          :key="`dice-roll-chip-${index}`"
+          cols="auto"
         >
-          <v-divider v-if="index !== 0" />
-          <v-list-item>
+          <v-chip
+            closable
+            @click:close="removeDiceRoll(index)"
+          >
             {{ diceRoll.name }}
-            <template #append>
-              <v-btn
-                icon="mdi-delete"
-                variant="text"
-                density="compact"
-                color="error"
-                @click="removeDiceRoll(index)"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
+            <template #close>
+              <v-icon color="error">
+                mdi-delete
+              </v-icon>
             </template>
-          </v-list-item>
-        </template>
-      </v-list>
+          </v-chip>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -132,7 +114,6 @@
 <script setup lang="ts">
 import type { CreateAttributeDiceRollTemplateDto,
   CreateAttributeCalculatedNumericValueTemplateDto,
-  CreateAttributeCharacterFieldPathTemplateDto,
 } from '~/composables/dtos/attribute-template/create.post.dto';
 import type { PathRegistryEntity } from '~/composables/entities/path-registry.entity';
 
@@ -151,7 +132,8 @@ defineProps<{
   paths: PathRegistryEntity[]
 }>();
 
-const currentAttribute = ref<CreateAttributeCharacterFieldPathTemplateDto>();
+const currentAttribute = ref<PathRegistryEntity>();
+watch(currentAttribute, newVal => console.log(newVal));
 const currentDiceRoll = ref<CreateAttributeDiceRollTemplateDto>({
   name: undefined,
   diceAmount: undefined,
