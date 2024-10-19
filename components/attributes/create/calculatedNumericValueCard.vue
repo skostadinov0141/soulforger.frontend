@@ -1,192 +1,222 @@
 <template>
   <v-row>
-    <v-col cols="4">
-      <v-autocomplete
-        v-model="currentAttribute"
-        :items="paths ?? []"
-        item-title="name"
-        prepend-inner-icon="mdi-tag"
-        return-object
-        label="Attribut"
-      />
-    </v-col>
-    <v-col
-      cols="8"
-      class="d-flex align-center"
-    >
-      <v-text-field
-        :model-value="currentAttribute?.path || undefined"
-        readonly
-        disabled
-        label="Pfad"
-      />
-      <v-btn
-        icon="mdi-send"
-        class="ml-6"
-        rounded
-        @click="addVariable()"
-      />
-    </v-col>
-    <v-col
-      v-if="model.variables.length > 0"
-      cols="12"
-    >
-      <v-row dense>
-        <v-col
-          v-for="(variable, index) in model.variables"
-          :key="`variable-chip-${index}`"
-          cols="auto"
-        >
-          <v-chip
-            closable
-            @click:close="removeVariable(index)"
-          >
-            {{ variable.name }}
-            <template #close>
-              <v-icon color="error">
-                mdi-delete
-              </v-icon>
-            </template>
-          </v-chip>
-        </v-col>
-      </v-row>
-    </v-col>
-    <v-col cols="12">
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="currentDiceRoll.name"
-            label="Würfelname"
-            prepend-inner-icon="mdi-tag"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="currentDiceRoll.diceAmount"
-            label="Anzahl"
-            prepend-inner-icon="mdi-dice-multiple"
-          />
-        </v-col>
-        <v-col class="d-flex align-center">
-          <v-text-field
-            v-model="currentDiceRoll.diceSides"
-            label="Seitenanzahl"
-            prepend-inner-icon="mdi-dice-d20"
-          />
-          <v-btn
-            icon
-            class="ml-6"
-            rounded
-            @click="addDiceRoll()"
-          >
-            <v-icon>mdi-send</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-col>
-    <v-col
-      v-if="model.diceRolls.length > 0"
-      cols="12"
-    >
-      <v-row dense>
-        <v-col
-          v-for="(diceRoll, index) in model.diceRolls"
-          :key="`dice-roll-chip-${index}`"
-          cols="auto"
-        >
-          <v-chip
-            closable
-            @click:close="removeDiceRoll(index)"
-          >
-            {{ diceRoll.name }}
-            <template #close>
-              <v-icon color="error">
-                mdi-delete
-              </v-icon>
-            </template>
-          </v-chip>
-        </v-col>
-      </v-row>
-    </v-col>
-    <v-col cols="12">
-      <v-alert
-        icon="mdi-information"
-        color="info"
-        variant="tonal"
+    <v-form>
+      <v-col cols="4">
+        <v-autocomplete
+          v-model="currentAttribute"
+          :items="paths ?? []"
+          item-title="name"
+          prepend-inner-icon="mdi-tag"
+          return-object
+          label="Attribut"
+        />
+      </v-col>
+      <v-col
+        cols="8"
+        class="d-flex align-center"
       >
-        <p>
-          Die Formel kann Variablen und Würfel enthalten. Die Würfel werden vor der Berechnung geworfen.
-          Variablen werden mit "{ Attributname }" verwendet. Würfel werden mit "[ Würfelname ]" verwendet.
-          Eine valide Formel könnte wie folgt aussehen:<br>
-        </p>
-        <p class="font-weight-black mt-2">
-          <v-chip
-            label
-            density="compact"
-            color="primary"
-            class="font-weight-black"
-          >
-            { Attribut 1 }
-          </v-chip> + 20 + <v-chip
-            label
-            density="compact"
-            color="primary"
-            class="font-weight-black"
-          >
-            { Attribut 2 }
-          </v-chip> + <v-chip
-            label
-            density="compact"
-            color="accent"
-            class="font-weight-black"
-          >
-            [ Würfel 1 ]
-          </v-chip>
-        </p>
-      </v-alert>
-    </v-col>
-    <v-col cols="12">
-      <v-text-field
-        v-model="model.formula"
-        label="Formel"
-        prepend-inner-icon="mdi-function-variant"
-      />
-    </v-col>
-    <v-col
-      cols="12"
-      class="d-flex justify-center"
-    >
-      <v-icon
-        size="32"
-        icon="mdi-arrow-down"
-      />
-    </v-col>
-    <v-col>
-      <v-card
-        variant="text"
-        class="fill-height d-block pa-3 border text-center"
+        <v-text-field
+          :model-value="currentAttribute?.path || undefined"
+          readonly
+          disabled
+          label="Pfad"
+        />
+        <v-btn
+          icon="mdi-send"
+          class="ml-6"
+          rounded
+          @click="addVariable()"
+        />
+      </v-col>
+      <v-col
+        v-if="model.variables.length > 0"
+        cols="12"
       >
-        {{ parsedFormula || 'Formel' }}
-      </v-card>
-    </v-col>
+        <v-row dense>
+          <v-col
+            v-for="(variable, index) in model.variables"
+            :key="`variable-chip-${index}`"
+            cols="auto"
+          >
+            <v-chip
+              closable
+              @click:close="removeVariable(index)"
+            >
+              {{ variable.name }}
+              <template #close>
+                <v-icon color="error">
+                  mdi-delete
+                </v-icon>
+              </template>
+            </v-chip>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="12">
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="currentDiceRoll.name"
+              label="Würfelname"
+              prepend-inner-icon="mdi-tag"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="currentDiceRoll.diceAmount"
+              label="Anzahl"
+              prepend-inner-icon="mdi-dice-multiple"
+            />
+          </v-col>
+          <v-col class="d-flex align-center">
+            <v-text-field
+              v-model="currentDiceRoll.diceSides"
+              label="Seitenanzahl"
+              prepend-inner-icon="mdi-dice-d20"
+            />
+            <v-btn
+              icon
+              class="ml-6"
+              rounded
+              @click="addDiceRoll()"
+            >
+              <v-icon>mdi-send</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col
+        v-if="model.diceRolls.length > 0"
+        cols="12"
+      >
+        <v-row dense>
+          <v-col
+            v-for="(diceRoll, index) in model.diceRolls"
+            :key="`dice-roll-chip-${index}`"
+            cols="auto"
+          >
+            <v-chip
+              closable
+              @click:close="removeDiceRoll(index)"
+            >
+              {{ diceRoll.name }}
+              <template #close>
+                <v-icon color="error">
+                  mdi-delete
+                </v-icon>
+              </template>
+            </v-chip>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="12">
+        <v-alert
+          icon="mdi-information"
+          color="info"
+          variant="tonal"
+        >
+          <p>
+            Die Formel kann Variablen und Würfel enthalten. Die Würfel werden vor der Berechnung geworfen.
+            Variablen werden mit "{ Attributname }" verwendet. Würfel werden mit "[ Würfelname ]" verwendet.
+            Eine valide Formel könnte wie folgt aussehen:<br>
+          </p>
+          <p class="font-weight-black mt-2">
+            <v-chip
+              label
+              density="compact"
+              color="primary"
+              class="font-weight-black"
+            >
+              { Attribut 1 }
+            </v-chip> + 20 + <v-chip
+              label
+              density="compact"
+              color="primary"
+              class="font-weight-black"
+            >
+              { Attribut 2 }
+            </v-chip> + <v-chip
+              label
+              density="compact"
+              color="accent"
+              class="font-weight-black"
+            >
+              [ Würfel 1 ]
+            </v-chip>
+          </p>
+        </v-alert>
+      </v-col>
+      <v-col cols="12">
+        <v-text-field
+          v-model="model.formula"
+          label="Formel"
+          prepend-inner-icon="mdi-function-variant"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        class="d-flex justify-center"
+      >
+        <v-icon
+          size="32"
+          icon="mdi-arrow-down"
+        />
+      </v-col>
+      <v-col>
+        <v-card
+          variant="text"
+          class="fill-height d-block pa-3 border"
+        >
+          <div v-html="parsedFormula" />
+        </v-card>
+      </v-col>
+    </v-form>
   </v-row>
 </template>
 
 <script setup lang="ts">
-import type { CreateAttributeDiceRollTemplateDto,
+import escapeHTML from 'escape-html';
+import type {
   CreateAttributeCalculatedNumericValueTemplateDto,
+  CreateAttributeDiceRollTemplateDto,
 } from '~/composables/dtos/attribute-template/create.post.dto';
 import type { PathRegistryEntity } from '~/composables/entities/path-registry.entity';
 
 const snackbar = useSnackbar();
 
-const model = defineModel<CreateAttributeCalculatedNumericValueTemplateDto>({
-  default: () => ({
-    formula: undefined,
-    variables: [],
-    diceRolls: [],
-  }),
-  required: true,
+const model = ref<CreateAttributeCalculatedNumericValueTemplateDto>({
+  formula: undefined,
+  variables: [],
+  diceRolls: [],
+});
+
+const parsedFormula = computed(() => {
+  if (!model.value.formula) return 'Formel';
+  const sanitizedFormula = escapeHTML(model.value.formula);
+  const parts = sanitizedFormula.split(/(\{[^}]+\}|\[[^\]]+\])/);
+  const renderedParts = parts.map((part) => {
+    if (part.startsWith('{') && part.endsWith('}')) {
+      const variableName = part.slice(1, -1).trim();
+      const isValid = model.value.variables.some(v => v.name === variableName);
+      return `
+        <strong style="color: ${isValid ? 'rgb(var(--v-theme-primary))' : 'rgb(var(--v-theme-error))'}">
+          ${variableName}
+        </strong>`;
+    }
+    else if (part.startsWith('[') && part.endsWith(']')) {
+      const diceRollName = part.slice(1, -1).trim();
+      const isValid = model.value.diceRolls.some(d => d.name === diceRollName);
+      return `
+        <strong style="color: ${isValid ? 'rgb(var(--v-theme-accent))' : 'rgb(var(--v-theme-error))'}">
+          ${diceRollName}
+        </strong>`;
+    }
+    else {
+      return part;
+    }
+  });
+
+  return renderedParts.join('');
 });
 
 defineProps<{
