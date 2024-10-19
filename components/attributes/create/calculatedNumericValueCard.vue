@@ -109,6 +109,43 @@
       </v-row>
     </v-col>
     <v-col cols="12">
+      <v-alert
+        icon="mdi-information"
+        color="info"
+        variant="tonal"
+      >
+        <p>
+          Die Formel kann Variablen und Würfel enthalten. Die Würfel werden vor der Berechnung geworfen.
+          Variablen werden mit "{ Attributname }" verwendet. Würfel werden mit "[ Würfelname ]" verwendet.
+          Eine valide Formel könnte wie folgt aussehen:<br>
+        </p>
+        <p class="font-weight-black mt-2">
+          <v-chip
+            label
+            density="compact"
+            color="primary"
+            class="font-weight-black"
+          >
+            { Attribut 1 }
+          </v-chip> + 20 + <v-chip
+            label
+            density="compact"
+            color="primary"
+            class="font-weight-black"
+          >
+            { Attribut 2 }
+          </v-chip> + <v-chip
+            label
+            density="compact"
+            color="accent"
+            class="font-weight-black"
+          >
+            [ Würfel 1 ]
+          </v-chip>
+        </p>
+      </v-alert>
+    </v-col>
+    <v-col cols="12">
       <v-text-field
         v-model="model.formula"
         label="Formel"
@@ -127,41 +164,10 @@
     <v-col>
       <v-card
         variant="text"
-        class="fill-height d-block pa-3 border"
+        class="fill-height d-block pa-3 border text-center"
       >
-        asdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafasasdfsdafdsafsadfsadfsadfsdafas
+        {{ parsedFormula || 'Formel' }}
       </v-card>
-    </v-col>
-    <v-col cols="12">
-      <p class="text-body-2 text-medium-emphasis">
-        Die Formel kann Variablen und Würfel enthalten. Die Würfel werden vor der Berechnung geworfen.
-        Variablen werden mit "{ Attributname }" verwendet. Würfel werden mit "[ Würfelname ]" verwendet.
-        Eine valide Formel könnte wie folgt aussehen:<br>
-      </p>
-      <p class="font-weight-black mt-2 text-body-2">
-        <v-chip
-          label
-          density="compact"
-          color="primary"
-          class="font-weight-black"
-        >
-          { Attribut 1 }
-        </v-chip> + 20 + <v-chip
-          label
-          density="compact"
-          color="primary"
-          class="font-weight-black"
-        >
-          { Attribut 2 }
-        </v-chip> + <v-chip
-          label
-          density="compact"
-          color="accent"
-          class="font-weight-black"
-        >
-          [ Würfel 1 ]
-        </v-chip>
-      </p>
     </v-col>
   </v-row>
 </template>
