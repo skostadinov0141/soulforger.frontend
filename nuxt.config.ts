@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { vuetifyOptions } from './vuetify';
+import { vuetifyOptions } from './vuetify.config';
 import { eslintConfig } from './eslint';
 
 export default defineNuxtConfig({
