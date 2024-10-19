@@ -89,10 +89,6 @@ function removeOption(index: number) {
     options: newOptions,
   };
 }
-
-watch(modelValue, () => {
-  console.log(modelValue.value);
-}, { deep: true });
 </script>
 
 <style scoped>

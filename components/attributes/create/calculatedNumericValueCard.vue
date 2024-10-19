@@ -133,7 +133,6 @@ defineProps<{
 }>();
 
 const currentAttribute = ref<PathRegistryEntity>();
-watch(currentAttribute, newVal => console.log(newVal));
 const currentDiceRoll = ref<CreateAttributeDiceRollTemplateDto>({
   name: undefined,
   diceAmount: undefined,
