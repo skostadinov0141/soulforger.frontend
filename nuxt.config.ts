@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     'pinia-plugin-persistedstate',
     '@primevue/nuxt-module',
     '@nuxt/fonts',
+    '@nuxtjs/tailwindcss',
   ],
   primevue: {
     /* Configuration */
