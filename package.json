@@ -11,21 +11,23 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@nuxt/eslint": "^0.5.7",
-    "@pinia/nuxt": "^0.5.5",
+    "@nuxt/eslint": "^1.4.1",
+    "@pinia/nuxt": "^0.11.1",
+    "@primeuix/themes": "^1.1.2",
+    "@primevue/forms": "^4.3.5",
     "@types/markdown-it": "^14.1.2",
-    "@volar/language-server": "2.4.0-alpha.18",
-    "@vue/language-server": "2.0.28",
+    "@volar/language-server": "2.4.15",
+    "@vue/language-server": "2.2.10",
     "md-editor-v3": "^4.21.0",
-    "nuxt": "^3.13.0",
+    "nuxt": "3.17.5",
+    "primevue": "^4.3.5",
     "vue": "latest",
-    "vue-router": "latest",
-    "vuetify-nuxt-module": "^0.18.3"
+    "vue-router": "latest"
   },
   "devDependencies": {
-    "@mdi/font": "^7.4.47",
-    "pinia-plugin-persistedstate": "^4.0.2",
-    "typescript": "^5.6.2"
+    "@primevue/nuxt-module": "^4.3.5",
+    "pinia-plugin-persistedstate": "^4.3.0",
+    "typescript": "^5.8.3"
   },
   "overrides": {
     "vue": "latest"
