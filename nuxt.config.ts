@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {DefaultPreset} from "~/themes/default";
+import {DefaultPreset} from "./themes/default";
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -12,10 +12,18 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxtjs/tailwindcss',
   ],
+  app: {
+    rootAttrs: {
+      class: 'app-dark'
+    }
+  },
   primevue: {
     options: {
       theme: {
-        preset: DefaultPreset
+        preset: DefaultPreset,
+        options: {
+          darkModeSelector: '.app-dark',
+        }
       }
     }
   },

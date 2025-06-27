@@ -1,5 +1,8 @@
-@import "tailwindcss/preflight";
+@import "tailwindcss-primeui";
+
 @tailwind utilities;
+
+@custom-variant dark (&:where(.app-dark, .app-dark *));
 
 :root {
     font-family: Inter;
