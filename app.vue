@@ -1,7 +1,7 @@
 <template>
-  <div class="">
-    <Card class="w-28 h-28"/>
-  </div>
+  <NuxtLayout>
+    <NuxtPage/>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>

@@ -12,11 +12,6 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxtjs/tailwindcss',
   ],
-  app: {
-    rootAttrs: {
-      class: 'app-dark'
-    }
-  },
   primevue: {
     options: {
       theme: {
