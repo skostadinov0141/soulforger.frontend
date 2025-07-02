@@ -43,9 +43,32 @@ export function useCharacterModelService() {
       });
   }
 
+  /**
+   * Retrieves a character model by its ID.
+   * @param id - The ID of the character model to retrieve.
+   */
+  async function getCharacterModelById(id: string): Promise<CharacterModel> {
+    return useApi()
+      .publicClient<CharacterModel>()(`character-model/${id}`, {
+        method: 'GET',
+      });
+  }
+
+  /**
+   * Retrieves all character models.
+   */
+  async function getAllCharacterModels(): Promise<CharacterModel[]> {
+    return useApi()
+      .publicClient<CharacterModel[]>()('character-model', {
+        method: 'GET',
+      });
+  }
+
   return {
     createCharacterModel,
     addPropertyToCharacterModel,
     addModifierToCharacterModel,
+    getCharacterModelById,
+    getAllCharacterModels,
   };
 }
