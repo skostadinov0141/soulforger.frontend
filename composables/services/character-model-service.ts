@@ -3,7 +3,7 @@ export function useCharacterModelService() {
    * Creates a new Character Model.
    * @param payload - The data to create the character model.
    */
-  async function createCharacterModel(payload: CreateCharacterModelDto) {
+  async function createCharacterModel(payload: CreateCharacterModelDto): Promise<CharacterModel> {
     return useApi()
       .publicClient<CharacterModel>()('character-model', {
         method: 'POST',
@@ -19,7 +19,7 @@ export function useCharacterModelService() {
   async function addPropertyToCharacterModel(
     id: string,
     payload: AddPropertyToModelDto,
-  ) {
+  ): Promise<CharacterModel> {
     return useApi()
       .publicClient<CharacterModel>()(`character-model/${id}/properties`, {
         method: 'POST',
@@ -35,7 +35,7 @@ export function useCharacterModelService() {
   async function addModifierToCharacterModel(
     id: string,
     payload: AddModifierToModelDto,
-  ) {
+  ): Promise<CharacterModel> {
     return useApi()
       .publicClient<CharacterModel>()(`character-model/${id}/modifiers`, {
         method: 'POST',
