@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <character-model-create-attribute/>
+    <character-model-create-attribute />
   </div>
 </template>
 

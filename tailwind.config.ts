@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 import PrimeUI from 'tailwindcss-primeui';
 
 export default {
@@ -11,4 +11,4 @@ export default {
     extend: {},
   },
   plugins: [PrimeUI],
-} satisfies Config
+} satisfies Config;

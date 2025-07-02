@@ -1,9 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {DefaultPreset} from "./themes/default";
+import { DefaultPreset } from './themes/default';
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
-  devtools: { enabled: true },
   modules: [
     '@nuxt/eslint',
     '@pinia/nuxt',
@@ -15,13 +13,15 @@ export default defineNuxtConfig({
   imports: {
     dirs: [
       'composables/**',
-    ]
+    ],
   },
+  devtools: { enabled: true },
   runtimeConfig: {
     public: {
       apiBaseUrl: 'http://localhost:3001/api',
-    }
+    },
   },
+  compatibilityDate: '2024-04-03',
   eslint: {
     config: {
       stylistic: true,
@@ -33,8 +33,8 @@ export default defineNuxtConfig({
         preset: DefaultPreset,
         options: {
           darkModeSelector: '.app-dark',
-        }
-      }
-    }
+        },
+      },
+    },
   },
 });
