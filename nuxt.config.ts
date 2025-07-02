@@ -12,6 +12,11 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxtjs/tailwindcss',
   ],
+  imports: {
+    dirs: [
+      '~/composables/*/*.ts',
+    ]
+  },
   primevue: {
     options: {
       theme: {
