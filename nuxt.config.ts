@@ -14,8 +14,18 @@ export default defineNuxtConfig({
   ],
   imports: {
     dirs: [
-      '~/composables/*/*.ts',
+      'composables/**',
     ]
+  },
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: 'http://localhost:3001/api',
+    }
+  },
+  eslint: {
+    config: {
+      stylistic: true,
+    },
   },
   primevue: {
     options: {
