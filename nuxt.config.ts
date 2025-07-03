@@ -18,7 +18,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      apiBaseUrl: 'http://localhost:3001/api',
+      apiBaseUrl: 'http://localhost:3001',
     },
   },
   compatibilityDate: '2024-04-03',
