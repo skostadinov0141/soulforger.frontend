@@ -13,6 +13,7 @@
         <Button
           :label="t('common.add')"
           icon="pi pi-plus"
+          @click="navigateTo('/character/model/create')"
         />
       </div>
     </template>
