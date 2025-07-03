@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module',
     '@nuxt/fonts',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/i18n',
   ],
   imports: {
     dirs: [
@@ -26,6 +27,13 @@ export default defineNuxtConfig({
     config: {
       stylistic: true,
     },
+  },
+  i18n: {
+    defaultLocale: 'en',
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'de', name: 'Deutsch', file: 'de.json' },
+    ],
   },
   primevue: {
     options: {
