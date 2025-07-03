@@ -3,8 +3,9 @@
 
 @tailwind utilities;
 
-@custom-variant dark (&:where(.app-dark, .app-dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {
+:root{
     font-family: Inter;
+    font-size: 14px;
 }

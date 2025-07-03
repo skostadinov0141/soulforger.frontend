@@ -1,13 +1,7 @@
 <template>
-  <div>
-    <pre>{{ data }}</pre>
-  </div>
+  <character-model-list-table :data="data || []" />
 </template>
 
 <script setup lang="ts">
 const { data } = await useAsyncData<CharacterModel[]>(() => useCharacterModelService().getAllCharacterModels());
 </script>
-
-<style scoped>
-
-</style>

@@ -29,7 +29,8 @@ export default defineNuxtConfig({
     },
   },
   i18n: {
-    defaultLocale: 'en',
+    bundle: { optimizeTranslationDirective: false },
+    defaultLocale: 'de',
     locales: [
       { code: 'en', name: 'English', file: 'en.json' },
       { code: 'de', name: 'Deutsch', file: 'de.json' },
@@ -40,7 +41,7 @@ export default defineNuxtConfig({
       theme: {
         preset: DefaultPreset,
         options: {
-          darkModeSelector: '.app-dark',
+          darkModeSelector: '.dark',
         },
       },
     },

@@ -1,1 +1,8 @@
-{}
+{
+  "common" : {
+    "id": "ID",
+    "name": "Name",
+    "actions": "Aktionen",
+    "add": "Hinzufügen"
+  }
+}

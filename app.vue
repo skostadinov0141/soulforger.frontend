@@ -7,7 +7,10 @@
 <script lang="ts" setup>
 useHead({
   htmlAttrs: {
-    class: 'app-dark',
+    class: 'dark',
+  },
+  bodyAttrs: {
+    class: 'm-0',
   },
 });
 </script>
