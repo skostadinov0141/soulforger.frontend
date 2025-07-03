@@ -31,6 +31,16 @@ export interface CharacterProperty {
    */
   guid: string;
   /**
+   * The name of the property.
+   * This is a localized string that can be translated into different languages.
+   */
+  name: string;
+  /**
+   * The description of the property.
+   * This is a localized string that can be translated into different languages.
+   */
+  description: string;
+  /**
    * The metadata associated with the property.
    * This can be of different types depending on the property type.
    */
@@ -79,6 +89,16 @@ export interface AddPropertyToModelDto {
    * @example "number"
    */
   type: "text" | "number" | "derived-number" | "boolean";
+  /**
+   * The name of the property.
+   * This is a localized string that can be translated into different languages.
+   */
+  name: string;
+  /**
+   * The description of the property.
+   * This is a localized string that can be translated into different languages.
+   */
+  description: string;
   /**
    * The metadata associated with the property.
    * This can be of different types depending on the property type.
